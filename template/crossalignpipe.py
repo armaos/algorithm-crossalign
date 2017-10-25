@@ -26,6 +26,7 @@ file2=open("./outputs/table.txt","r").readlines()
 
 #DTW ALGORITHM
 
+mode=str(sys.argv[1])
 
 #print filez
 hum1=[]
