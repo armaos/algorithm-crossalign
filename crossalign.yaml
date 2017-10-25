@@ -5,11 +5,11 @@ title_styled:   >
     prova
 version:    1.0
 description:    >
-    <p>CROSSalign (computational recognition of secondary structure) predicts the secondary structure propensity profile of an RNA molecule at single-nucleotide resolution. CROSS produces a table with the propensity scores and a graphical representation of the profile.</p> 
+    <p>CROSSalign predicts the structural similarities of two RNA profiles of different length. The tool is based on CROSS and a Dynamic Time Warping algorithm.</p> 
 
 
 description_short:    >
-    Computes the prediction of RSS propensity
+    Computes the similarity of RNA secondary structure
 
 nav_links:
     -   title:  >
@@ -51,15 +51,15 @@ form_fields:
         min_length: 25
         max_length: 50000
     -   name: feature
-        description: <b>Modes of DTW (see the Tutorial/Documentation for the details)</b> 
+        description: <b>Modes of Dynamic Time Warping(DTW; see the Tutorial/Documentation for the details)</b> 
         type: radio
         required: Yes                
         entries:
-            -   title:  Normal mode
+            -   title:  Standard DTW
                 value:  normal  
-            -   title:  OBE mode
+            -   title:  OBE-DTW
                 value:  obe  
-            -   title:  Fragmented mode
+            -   title:  Fragmented OBE-DTW
                 value:  fragment
                                    
     -   name: email
@@ -68,14 +68,14 @@ form_fields:
         required: No  
  
 
-examples:
-    -   reference_id:   90477
-        title:          Xist
-        description:    The complete profile of murine Xist (17'918 nucleotides)   
-
-
-algorithm:
-    command:              "cross.py -output_dir=<output_dir>"
+#examples:
+#    -   reference_id:   90477
+#        title:          Xist
+#        description:    The complete profile of murine Xist (17'918 nucleotides)   
+#
+#
+#algorithm:
+#    command:              "cross.py -output_dir=<output_dir>"
     processing_timeout:   86400
     
 # for the processing part

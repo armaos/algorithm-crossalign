@@ -18,6 +18,7 @@ random=$4
 # 	awk -v step=$step 'NR == 1 || NR % step == 0' ./outputs/table.txt | awk -F'\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $2, $3, $4}END{printf "</tbody>\n"}'  > ./outputs/table.html
 # fi
 
+cd tmp/$random
 python crossalignpipe.py $network > dtw_output.tmp
 awk '(NF==2 && $2~/^[[:digit:]]/){print $2}' dtw_output.tmp > ./outputs/score.txt
 sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > ./outputs/matches.txt
@@ -31,4 +32,4 @@ sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > ./outpu
 # step=$(<./outputs/smooth.txt)
 # awk -v step=$step 'NR == 1 || NR % step == 0' ./outputs/table.txt | awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $2, $3, $4}END{printf "</tbody>\n"}'  > ./outputs/table.html
 # 
-#cd ../..
+cd ../..
