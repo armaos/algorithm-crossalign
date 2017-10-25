@@ -1,0 +1,84 @@
+---
+title:      CROSSalign
+name:       crossalign
+title_styled:   >
+    prova
+version:    1.0
+description:    >
+    <p>CROSSalign (computational recognition of secondary structure) predicts the secondary structure propensity profile of an RNA molecule at single-nucleotide resolution. CROSS produces a table with the propensity scores and a graphical representation of the profile.</p> 
+
+
+description_short:    >
+    Computes the prediction of RSS propensity
+
+nav_links:
+    -   title:  >
+            CROSSalign home
+        href:   >
+            http://service.tartaglialab.com/new_submission/crossalign
+    -   title:  >
+            Documentation
+        href:   >
+            http://service.tartaglialab.com/static_files/algorithms/crossalign/documentation.html       
+    -   title:  >
+            Tutorial
+        href:   >
+            http://service.tartaglialab.com/static_files/algorithms/crossalign/tutorial.html        
+#    -   title:  >
+#            FAQs
+#        href:   >
+#            http://service.tartaglialab.com/static_files/shared/faqs.html        
+    -   title:  >
+            Group page @ CRG
+        href:   >
+            http://pasteur.crg.es/portal/page/portal/827A462EAB6802B3E04012AC0E01291B
+       
+form_fields:
+    -   name: title
+        description: Submission label (optional)
+        required: No
+        type: text
+    -   name: sequence_one
+        description: RNA Sequences 1 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
+        required: Yes
+        type: textarea
+        min_length: 25
+        max_length: 50000
+    -   name: sequence_two
+        description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
+        required: Yes
+        type: textarea
+        min_length: 25
+        max_length: 50000
+    -   name: feature
+        description: <b>Modes of DTW (see the Tutorial/Documentation for the details)</b> 
+        type: radio
+        required: Yes                
+        entries:
+            -   title:  Normal mode
+                value:  normal  
+            -   title:  OBE mode
+                value:  obe  
+            -   title:  Fragmented mode
+                value:  fragment
+                                   
+    -   name: email
+        description: Email address (optional, used for notification)
+        type: email
+        required: No  
+ 
+
+examples:
+    -   reference_id:   90477
+        title:          Xist
+        description:    The complete profile of murine Xist (17'918 nucleotides)   
+
+
+algorithm:
+    command:              "cross.py -output_dir=<output_dir>"
+    processing_timeout:   86400
+    
+# for the processing part
+output:
+    - 
+
