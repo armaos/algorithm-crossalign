@@ -74,8 +74,8 @@ form_fields:
 #        description:    The complete profile of murine Xist (17'918 nucleotides)   
 #
 #
-#algorithm:
-#    command:              "cross.py -output_dir=<output_dir>"
+algorithm:
+    command:              "crossalign.py -output_dir=<output_dir>"
     processing_timeout:   86400
     
 # for the processing part
