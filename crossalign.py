@@ -108,12 +108,11 @@ if p.returncode == 0:
 	# read the template file into a variable
 	i=0
 	myfile=open(TMP_PATH+"score.txt","r").readlines()
-	for line in myfile[0]:
+	for line in myfile:
 		distance=line[:-1]
 	summary_line=''
 	
 	#HTML INDEX DECISION
-	print distance
 	if args.FORMfeature[0]=="normal":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
