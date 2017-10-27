@@ -107,8 +107,8 @@ if p.returncode == 0:
 
 	# read the template file into a variable
 	i=0
-	myfile=open("./outputs/score.txt","r").readlines()
-	for line in myfile:
+	myfile=open(TMP_PATH+"score.txt","r").readlines()
+	for line in myfile[0]:
 		distance=line[:-1]
 	summary_line=''
 	
