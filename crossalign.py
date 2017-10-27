@@ -107,10 +107,9 @@ if p.returncode == 0:
 
 	# read the template file into a variable
 	i=0
-	myfile=open(rnaFile,"r").readlines()
+	myfile=open("./outputs/score.txt","r").readlines()
 	for line in myfile:
-		if ">" in line:
-			i=i+1
+		distance=line[:-1]
 	summary_line=''
 	
 	#HTML INDEX DECISION
@@ -130,6 +129,7 @@ if p.returncode == 0:
 		   "title": args.FORMtitle,
 		   "randoms" : random_number,
 		   "feature" : args.FORMfeature[0],
+		   "value" : distance,
 		   "generated" : str(datetime.datetime.now()),
 		   "summary" : summary_line
 	   }
