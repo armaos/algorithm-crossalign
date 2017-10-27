@@ -113,7 +113,7 @@ if p.returncode == 0:
 	summary_line=''
 	
 	#HTML INDEX DECISION
-	
+	print distance
 	if args.FORMfeature[0]=="normal":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
