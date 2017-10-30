@@ -132,20 +132,37 @@ if p.returncode == 0:
 
 	# create template from the string
 	t = Template(template_string)
-
+	
 	# context contains variables to be replaced
-	c = Context(
-	   {
-		   "title": args.FORMtitle,
-		   "randoms" : random_number,
-		   "feature" : args.FORMfeature[0],
-		   "value" : distance,
-		   "start" : begin,
-		   "end" : finish,
-		   "generated" : str(datetime.datetime.now()),
-		   "summary" : summary_line
-	   }
-	)
+	
+	
+	if args.FORMfeature[0]=="normal":
+	
+		c = Context(
+			{
+			   "title": args.FORMtitle,
+			   "randoms" : random_number,
+			   "feature" : args.FORMfeature[0],
+			   "value" : distance,
+			   "generated" : str(datetime.datetime.now()),
+			   "summary" : summary_line
+		   }
+		)
+	
+	if args.FORMfeature[0]=="obe":
+	
+		c = Context(
+		   {
+			   "title": args.FORMtitle,
+			   "randoms" : random_number,
+			   "feature" : args.FORMfeature[0],
+			   "value" : distance,
+			   "start" : begin,
+			   "end" : finish,
+			   "generated" : str(datetime.datetime.now()),
+			   "summary" : summary_line
+		   }
+		)
 
 	# and this bit outputs it all into index.html
 	#print "crosspy OUTPUT_path", OUTPUT_PATH
