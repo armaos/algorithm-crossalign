@@ -25,7 +25,7 @@ awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > i
 
 python crossalignpipe.py $network > dtw_output.tmp
 #awk '(NF==2 && $2~/^[[:digit:]]/){print $2}' dtw_output.tmp > outputs/score.txt
-awk '(NF==2 && $2~/0./){print $2}' dtw_output.tmp > outputs/score.txt
+awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
 sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
 
 # for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
