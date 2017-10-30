@@ -28,7 +28,7 @@ python crossalignpipe.py $network > dtw_output.tmp
 awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
 sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
 
-if [$network="obe"]
+if (($network=="obe"))
 then
 	for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
 	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
