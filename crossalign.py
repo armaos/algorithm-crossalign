@@ -116,6 +116,17 @@ if p.returncode == 0:
 	if args.FORMfeature[0]=="normal":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
+			   
+	if args.FORMfeature[0]=="obe":
+		with open(os.path.join(SCRIPT_PATH, "index.crossalign_obe.html"), "r") as template_file:
+			   template_string = "".join(template_file.readlines())
+			   
+		myfile2=open(TMP_PATH+"start.txt","r").readlines()
+		for line in myfile2:
+			begin=line[:-1]
+		myfile3=open(TMP_PATH+"end.txt","r").readlines()
+		for line2 in myfile3:
+			finish=line2[:-1]
 	
 	import datetime
 
@@ -129,6 +140,8 @@ if p.returncode == 0:
 		   "randoms" : random_number,
 		   "feature" : args.FORMfeature[0],
 		   "value" : distance,
+		   "start" : begin,
+		   "end" : finish,
 		   "generated" : str(datetime.datetime.now()),
 		   "summary" : summary_line
 	   }

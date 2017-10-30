@@ -73,4 +73,12 @@ if mode=="normal":
 		os.system("awk '{print NR,$1}' tmp2.txt > shorter.txt")
 		os.system("awk '{print NR,$1}' tmp1.txt > longer.txt")
 	
-	
+if mode=="obe":
+	if len(hum1)<len(mou1):
+		subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+input1+" "+input2,shell=True)
+		os.system("awk '{print NR,$1}' tmp1.txt > shorter.txt")
+		os.system("awk '{print NR,$1}' tmp2.txt > longer.txt")
+	else:
+		subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+input2+" "+input1,shell=True)
+		os.system("awk '{print NR,$1}' tmp2.txt > shorter.txt")
+		os.system("awk '{print NR,$1}' tmp1.txt > longer.txt")
