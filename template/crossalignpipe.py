@@ -93,14 +93,14 @@ if mode=="fragment":
 	hum1=[]
 	mou1=[]
 	for line2 in file2:
-	camp2=line2.split("\t")
-	#camp2=line2.split(" ")
-	#print camp2
-	if len(camp2)==4:
-		if camp2[1]!="-\n":
-			mou1.append(float(camp2[2]))
-		else:
-			mou1.append(0)
+		camp2=line2.split("\t")
+		#camp2=line2.split(" ")
+		#print camp2
+		if len(camp2)==4:
+			if camp2[1]!="-\n":
+				mou1.append(float(camp2[2]))
+			else:
+				mou1.append(0)
 	for line in file1:
 		camp=line.split("\t")
 		#camp=line.split(" ")
