@@ -167,6 +167,19 @@ if p.returncode == 0:
 		   }
 		)
 
+	if args.FORMfeature[0]=="fragment":
+	
+		c = Context(
+			{
+			   "title": args.FORMtitle,
+			   "randoms" : random_number,
+			   "feature" : args.FORMfeature[0],
+			   "generated" : str(datetime.datetime.now()),
+			   "summary" : summary_line
+		   }
+		)
+
+
 	# and this bit outputs it all into index.html
 	#print "crosspy OUTPUT_path", OUTPUT_PATH
 	with open(os.path.join(OUTPUT_PATH, "index.html"), "w") as output:
