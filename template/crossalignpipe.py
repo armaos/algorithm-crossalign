@@ -28,40 +28,44 @@ file2=open("./outputs/table.txt","r").readlines()
 mode=str(sys.argv[1])
 
 #print filez
-hum1=[]
-mou1=[]
-for line in file1:
-	camp=line.split("\t")
-	#camp=line.split(" ")
-	#print camp
-	if len(camp)==4:
-		if camp[1]!="-\n":
-			hum1.append(float(camp[2]))
-		else:
-			hum1.append(0)
+
+if mode!="fragment":
+	hum1=[]
+	mou1=[]
+	for line in file1:
+		camp=line.split("\t")
+		#camp=line.split(" ")
+		#print camp
+		if len(camp)==4:
+			if camp[1]!="-\n":
+				hum1.append(float(camp[2]))
+			else:
+				hum1.append(0)
 	
 
-#file2=open("./Submission/Profiles/"+input2,"r").readlines()
-for line2 in file2:
-	camp2=line2.split("\t")
-	#camp2=line2.split(" ")
-	#print camp2
-	if len(camp2)==4:
-		if camp2[1]!="-\n":
-			mou1.append(float(camp2[2]))
-		else:
-			mou1.append(0)
+	#file2=open("./Submission/Profiles/"+input2,"r").readlines()
+	for line2 in file2:
+		camp2=line2.split("\t")
+		#camp2=line2.split(" ")
+		#print camp2
+		if len(camp2)==4:
+			if camp2[1]!="-\n":
+				mou1.append(float(camp2[2]))
+			else:
+				mou1.append(0)
 			
-tmp1=open("tmp1.txt","w")
-tmp2=open("tmp2.txt","w")
-for x in hum1:
-	tmp1.write(str(x)+"\n")
-for y in mou1:
-	tmp2.write(str(y)+"\n")
-name1="tmp1.txt"
-name2="tmp2.txt"
-tmp1.close()
-tmp2.close()
+	tmp1=open("tmp1.txt","w")
+	tmp2=open("tmp2.txt","w")
+	for x in hum1:
+		tmp1.write(str(x)+"\n")
+	for y in mou1:
+		tmp2.write(str(y)+"\n")
+	name1="tmp1.txt"
+	name2="tmp2.txt"
+	tmp1.close()
+	tmp2.close()
+		
+	
 #print file1,file2
 if mode=="normal":
 	if len(hum1)<len(mou1):
@@ -82,3 +86,53 @@ if mode=="obe":
 		subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+input2+" "+input1,shell=True)
 		os.system("awk '{print NR,$1}' tmp2.txt > shorter.txt")
 		os.system("awk '{print NR,$1}' tmp1.txt > longer.txt")
+		
+		
+		
+if mode=="fragment":
+	hum1=[]
+	mou1=[]
+	for line2 in file2:
+	camp2=line2.split("\t")
+	#camp2=line2.split(" ")
+	#print camp2
+	if len(camp2)==4:
+		if camp2[1]!="-\n":
+			mou1.append(float(camp2[2]))
+		else:
+			mou1.append(0)
+	for line in file1:
+		camp=line.split("\t")
+		#camp=line.split(" ")
+		#print camp
+		if len(camp)==4:
+			if camp[1]!="-\n":
+				hum1.append(float(camp[2]))
+			else:
+				hum1.append(0)
+				
+	tmp2=open("tmp2.txt","w")
+	for y in mou1:
+		tmp2.write(str(y)+"\n")
+	tmp2.close()
+	
+	n=200
+	i=1
+	while (i*n)<=len(hum1):
+		hum2=[]
+		for elem in hum1:
+			if hum1.index(elem)>=(n*(i-1)) and hum1.index(elem)<(n*(i)):
+				hum2.append(elem)
+		
+		tmp1=open("tmp1.txt","w")
+		
+		for x in hum2:
+			tmp1.write(str(x)+"\n")
+		
+		name1="tmp1.txt"
+		name2="tmp2.txt"
+		tmp1.close()
+		subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+input1+"_"+str(n*i)+" "+input2,shell=True)
+		os.system("awk '{print NR,$1}' tmp1.txt > shorter.txt")
+		os.system("awk '{print NR,$1}' tmp2.txt > longer.txt")
+		i=i+1
