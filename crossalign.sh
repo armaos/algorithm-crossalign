@@ -40,11 +40,11 @@ fi
 
 if (($network=="fragment"))
 then
-	awk '(NF==2){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp > ./outputs/table.txt
-	for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
-	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
-	end0=$(tail -n 1 ./outputs/matches.txt | awk '{print $NF}')
+	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
+# 	for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
+# 	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
+# 	end0=$(tail -n 1 ./outputs/matches.txt | awk '{print $NF}')
 	#step=$(<./outputs/smooth.txt)
 	#awk -v step=$step 'NR == 1 || NR % step == 0' ./outputs/table.txt | awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $2, $3, $4}END{printf "</tbody>\n"}'  > ./outputs/table.html
-
+fi
 cd ../..
