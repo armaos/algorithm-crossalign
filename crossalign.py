@@ -127,7 +127,10 @@ if p.returncode == 0:
 		myfile3=open(TMP_PATH+"end.txt","r").readlines()
 		for line2 in myfile3:
 			finish=line2[:-1]
-	
+			
+	if args.FORMfeature[0]=="fragment":
+		with open(os.path.join(SCRIPT_PATH, "index.crossalign_fragments.html"), "r") as template_file:
+			   template_string = "".join(template_file.readlines())
 	import datetime
 
 	# create template from the string
