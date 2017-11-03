@@ -112,6 +112,42 @@ if p.returncode == 0:
 		distance=line[:-1]
 	summary_line=''
 	
+	#P-VALUE
+	
+	seq1=open(TMP_PATH+"input_bis.fasta","r").readlines()
+	seq2=open(TMP_PATH+"input2.fasta","r").readlines()
+	size1=[]
+	size2=[]
+	for line in seq1:
+		size1.append(len((line.split("\t"))[1][:-1]))
+	for line2 in seq2:
+		size2.append(len((line2.split("\t"))[1][:-1]))
+	if size1<=300:
+		sizeone=200
+	if size2<=300:
+		sizetwo=200
+	if size1>300 and size1<=700:
+		sizeone=500
+	if size2>300 and size2<=700:
+		sizetwo=500
+	if size1>700 and size1<=3000:
+		sizeone=1000
+	if size2>700 and size2<=3000:
+		sizetwo=1000
+	if size1>3000:
+		sizeone=5000
+	if size2>3000:
+		sizetwo=5000
+	distr=open(TMP_PATH+"distributions/"+str(sizeone)+"_"+str(sizetwo)+"_.dist","r").readlines()	
+	i=1
+	tot=0
+	for elem in distr:
+		if float(elem)<=float(score):
+			tot=tot+1
+		i=i+1
+	pval=float(float(tot)/float(i))	
+		
+	
 	#HTML INDEX DECISION
 	if args.FORMfeature[0]=="normal":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign.html"), "r") as template_file:
@@ -147,6 +183,7 @@ if p.returncode == 0:
 			   "randoms" : random_number,
 			   "feature" : args.FORMfeature[0],
 			   "value" : distance,
+			   "pvalue" : pval,
 			   "generated" : str(datetime.datetime.now()),
 			   "summary" : summary_line
 		   }
@@ -160,6 +197,7 @@ if p.returncode == 0:
 			   "randoms" : random_number,
 			   "feature" : args.FORMfeature[0],
 			   "value" : distance,
+			   "pvalue" : pval,
 			   "start" : begin,
 			   "end" : finish,
 			   "generated" : str(datetime.datetime.now()),
@@ -174,6 +212,7 @@ if p.returncode == 0:
 			   "title": args.FORMtitle,
 			   "randoms" : random_number,
 			   "feature" : args.FORMfeature[0],
+			   "pvalue" : pval,
 			   "generated" : str(datetime.datetime.now()),
 			   "summary" : summary_line
 		   }
