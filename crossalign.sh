@@ -25,9 +25,11 @@ awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > i
 cp input.fasta input_bis.fasta
 #cp input2.fasta outputs/input2.fasta
 python crossalignpipe.py $network > dtw_output.tmp
+awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+
 if (($network!="fragment"))
 then
-	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+	
 	python pvalue.py > outputs/pval.txt
 fi
 #awk '(NF==2 && $2~/^[[:digit:]]/){print $2}' dtw_output.tmp > outputs/score.txt
