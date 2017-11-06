@@ -34,4 +34,4 @@ for elem in distr:
 		tot=tot+1
 	i=i+1
 pval=float(float(tot)/float(i))	
-print pval
+print("{:.2e}".format(pval))
