@@ -25,8 +25,11 @@ awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > i
 cp input.fasta input_bis.fasta
 #cp input2.fasta outputs/input2.fasta
 python crossalignpipe.py $network > dtw_output.tmp
-awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
-python pvalue.py > outputs/pval.txt
+if (($network!="fragment"))
+then
+	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+	python pvalue.py > outputs/pval.txt
+fi
 #awk '(NF==2 && $2~/^[[:digit:]]/){print $2}' dtw_output.tmp > outputs/score.txt
 
 sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
@@ -44,9 +47,10 @@ fi
 if (($network=="fragment"))
 then
 	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
+	python multipval.py
 # 	for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
 # 	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
 # 	end0=$(tail -n 1 ./outputs/matches.txt | awk '{print $NF}')
-	awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5}END{printf "</tbody>\n"}' ./outputs/table_final.txt  > outputs/table.html
+	awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table2_final.txt  > outputs/table.html
 fi
 cd ../..
