@@ -114,8 +114,8 @@ if p.returncode == 0:
 	
 	#P-VALUE
 	
-	seq1=open(SCRIPT_PATH+"input_bis.fasta","r").readlines()
-	seq2=open(SCRIPT_PATH+"input2.fasta","r").readlines()
+	seq1=open(TMP_PATH+"input_bis.fasta","r").readlines()
+	seq2=open(TMP_PATH+"input2.fasta","r").readlines()
 	size1=[]
 	size2=[]
 	for line in seq1:
