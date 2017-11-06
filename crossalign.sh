@@ -22,9 +22,10 @@ cd tmp/$random
 
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
-cp input.fasta outputs/input_bis.fasta
-cp input2.fasta outputs/input2.fasta
+cp input.fasta input_bis.fasta
+#cp input2.fasta outputs/input2.fasta
 python crossalignpipe.py $network > dtw_output.tmp
+python pvalue.py > outputs/pval.txt
 #awk '(NF==2 && $2~/^[[:digit:]]/){print $2}' dtw_output.tmp > outputs/score.txt
 awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
 sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
