@@ -1,6 +1,6 @@
 seq1=open("input_bis.fasta","r").readlines()
 seq2=open("input2.fasta","r").readlines()
-myfile=open("score.txt","r").readlines()
+myfile=open("./outputs/score.txt","r").readlines()
 for line in myfile:
 	score=line[:-1]
 	
