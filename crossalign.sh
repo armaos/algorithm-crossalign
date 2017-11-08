@@ -53,6 +53,6 @@ then
 # 	for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
 # 	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
 # 	end0=$(tail -n 1 ./outputs/matches.txt | awk '{print $NF}')
-	awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table2_final.txt  > outputs/table.html
+	awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
 fi
 cd ../..
