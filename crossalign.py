@@ -112,10 +112,10 @@ if p.returncode == 0:
 		distance=line[:-1]
 		
 	#P-VALUE	
-	
-	myfile2=open(TMP_PATH+"pval.txt","r").readlines()
-	for line in myfile2:
-		pval=line[:-1]
+	if args.FORMfeature[0]!="fragment":
+		myfile2=open(TMP_PATH+"pval.txt","r").readlines()
+		for line in myfile2:
+			pval=line[:-1]
 		
 	summary_line=''
 	
