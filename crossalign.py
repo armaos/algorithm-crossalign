@@ -188,7 +188,6 @@ if p.returncode == 0:
 			   "title": args.FORMtitle,
 			   "randoms" : random_number,
 			   "feature" : args.FORMfeature[0],
-			   "pvalue" : pval,
 			   "generated" : str(datetime.datetime.now()),
 			   "summary" : summary_line
 		   }
