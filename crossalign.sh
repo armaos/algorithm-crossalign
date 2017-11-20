@@ -25,9 +25,6 @@ awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > i
 cp input.fasta input_bis.fasta
 #cp input2.fasta outputs/input2.fasta
 
-awk '($4!="-"){print $4}' input_bis.fasta > outputs/smooth1.txt
-awk '($4!="-"){print $4}' input2.fasta > outputs/smooth2.txt
-
 
 word1=$(wc input_bis.fasta | awk '{print $1}')
 word2=$(wc input2.fasta | awk '{print $1}')
