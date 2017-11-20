@@ -8,8 +8,8 @@ name2<-as.character(args[8])
 library(dtw)
 library(proxy)
 png("outputs/plot.png")
-one<-read.table(vect1)
-two<-read.table(vect2)
+one<-read.table("outputs/smooth1.txt")
+two<-read.table("outputs/smooth2.txt")
 alignment<-dtw(one$V1,two$V1,keep=TRUE)
 name1
 name2

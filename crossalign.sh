@@ -24,8 +24,23 @@ awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > in
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
 cp input.fasta input_bis.fasta
 #cp input2.fasta outputs/input2.fasta
-python crossalignpipe.py $network > dtw_output.tmp
-awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+
+awk '($4!="-"){print $4}' input_bis.fasta > outputs/smooth1.txt
+awk '($4!="-"){print $4}' input2.fasta > outputs/smooth2.txt
+
+
+word1=$(wc input_bis.fasta | awk '{print $1}')
+word2=$(wc input2.fasta | awk '{print $1}')
+word=$word1+$word2
+if [[ $word -gt 2 ]]
+then
+	python multicrosspipeline.py $network
+	zip -r ./outputs/Submission Submission
+else
+
+	python crossalignpipe.py $network > dtw_output.tmp
+	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+fi
 
 if (($network!="fragment"))
 then
