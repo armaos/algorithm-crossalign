@@ -15,7 +15,7 @@ os.system("python crosspipeline.py global")
 input1=((open("input.fasta","r").readline()).split("\t"))[0][1:]
 file1=open("./outputs/table.txt","r").readlines()
 
-os.system("awk '($4!="-"){print $4}' ./outputs/table.txt > outputs/smooth1.txt")
+os.system("awk '($4!=\"-\"){print $4}' ./outputs/table.txt > outputs/smooth1.txt")
 
 
 os.system("cp input2.fasta input.fasta")
@@ -24,7 +24,7 @@ input2=((open("input.fasta","r").readline()).split("\t"))[0][1:]
 #input2=os.listdir("./Submission/Profiles/")[0]
 file2=open("./outputs/table.txt","r").readlines()
 
-os.system("awk '($4!="-"){print $4}' ./outputs/table.txt > outputs/smooth2.txt")
+os.system("awk '($4!=\"-\"){print $4}' ./outputs/table.txt > outputs/smooth2.txt")
 
 
 #DTW ALGORITHM
