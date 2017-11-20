@@ -8,13 +8,17 @@ name2<-as.character(args[8])
 library(dtw)
 library(proxy)
 png("outputs/plot.png")
-one<-read.table("outputs/smooth1.txt")
-two<-read.table("outputs/smooth2.txt")
+one<-read.table(vect1)
+two<-read.table(vect2)
+
 alignment<-dtw(one$V1,two$V1,keep=TRUE)
 name1
 name2
 #alignment$distance
 alignment$normalizedDistance
+one<-read.table("outputs/smooth1.txt")
+two<-read.table("outputs/smooth2.txt")
+alignment<-dtw(one$V1,two$V1,keep=TRUE)
 plot(alignment,type="threeway",col=2,lwd=3,xlab="CROSS profile 1",ylab="CROSS profile 2",main="Structural alignment")
 dev.off()
 
