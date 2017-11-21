@@ -37,6 +37,7 @@ else
 
 	python crossalignpipe.py $network > dtw_output.tmp
 	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+	python pvalue.py > outputs/pval.txt
 fi
 
 if (($network!="fragment"))
