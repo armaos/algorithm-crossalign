@@ -1,6 +1,6 @@
 a<-read.table("cross_short.txt")
 b<-read.table("cross_long.txt")
-png("/outputs/plot.png")
+png("/outputs/plot2.png")
 #plot(smooth.spline(a$V2),type="l",col=2,lwd=3,ylim=c(-1,1),xlab="Sequence",ylab="Score",main="RSS propensity")
 plot(b$V2,type="l",col=2,lwd=3,ylim=c(-1,1),xlab="Sequence",ylab="CROSS score",main="")
 lines(a$V2,col="darkgray",lwd=3)
