@@ -57,6 +57,7 @@ then
 	awk -v start=$start0 -v end=$end0 '($1>=start && $1<=end)' longer.txt > cross_long.txt
 	head -n 1 ./outputs/matches.txt | awk '{print $1}' > outputs/start.txt
 	wc cross_short.txt | awk '{print $1}' > outputs/end.txt
+	Rscript overlap.r
 fi
 
 if (($network=="fragment"))
