@@ -51,13 +51,14 @@ sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs
 
 if (($network=="obe"))
 then
-	for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
+	for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)' | awk '(length($1)>0)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
 	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
-	#end0=$(wc cross_short.txt | awk '{print $1}')
-	end0=$(tail -n 1 ./outputs/matches.txt | awk '{print $1}')
-	awk -v start=$start0 -v end=$end0 '($1>=start && $1<=end)' longer.txt > cross_long.txt
+	end0=$(wc cross_short.txt | awk '{print $1}')
+	#end0=$(tail -n 1 ./outputs/matches.txt | awk '{print $1}')
+	awk -v start=$start0 -v end=$end0 '($1>=start && $1<=end+start)' longer.txt > cross_long.txt
 	head -n 1 ./outputs/matches.txt | awk '{print $1}' > outputs/start.txt
-	wc cross_short.txt | awk -v start=$start0 -v end=$end0 '{print $1}' > outputs/end.txt
+	wc cross_short.txt | awk -v start=$start0 -v end=$end0 '{print $1+start}' > outputs/end.txt
+	#tail -n 1 ./outputs/matches.txt | awk '{print $1}' > outputs/end.txt
 	Rscript overlap.r
 fi
 
