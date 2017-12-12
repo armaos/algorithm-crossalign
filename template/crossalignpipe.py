@@ -17,6 +17,12 @@ file1=open("./outputs/table.txt","r").readlines()
 
 os.system("awk '($4!=\"-\"){print $4}' ./outputs/table.txt > outputs/smooth1.txt")
 
+os.system("cp input2.fasta input.fasta")
+os.system("python crosspipeline.py global")
+input2=((open("input.fasta","r").readline()).split("\t"))[0][1:]
+#input2=os.listdir("./Submission/Profiles/")[0]
+file2=open("./outputs/table.txt","r").readlines()
+os.system("awk '($4!=\"-\"){print $4}' ./outputs/table.txt > outputs/smooth2.txt")
 
 
 
@@ -95,12 +101,12 @@ if mode=="obe":
 		
 		
 if mode=="fragment":
-	os.system("cp input2.fasta input.fasta")
-	os.system("python crosspipeline.py global")
-	input2=((open("input.fasta","r").readline()).split("\t"))[0][1:]
-	#input2=os.listdir("./Submission/Profiles/")[0]
-	file2=open("./outputs/table.txt","r").readlines()
-	os.system("awk '($4!=\"-\"){print $4}' ./outputs/table.txt > outputs/smooth2.txt")
+# 	os.system("cp input2.fasta input.fasta")
+# 	os.system("python crosspipeline.py global")
+# 	input2=((open("input.fasta","r").readline()).split("\t"))[0][1:]
+# 	#input2=os.listdir("./Submission/Profiles/")[0]
+# 	file2=open("./outputs/table.txt","r").readlines()
+# 	os.system("awk '($4!=\"-\"){print $4}' ./outputs/table.txt > outputs/smooth2.txt")
 	hum1=[]
 	mou1=[]
 	for line2 in file2:
