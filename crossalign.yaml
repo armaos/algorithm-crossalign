@@ -42,7 +42,7 @@ form_fields:
         description: RNA Sequences 1 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
         required: Yes
         type: textarea
-        min_length: 0
+        min_length: 25
         max_length: 50000
     -   name: feature
         description: <b>Modes of Dynamic Time Warping (DTW; see the Tutorial/Documentation for the details)</b> 
@@ -92,7 +92,6 @@ form_fields:
         required: No
         hidden: No
         type: textarea
-        min_length:0
         max_length: 50000                             
     -   name: email
         description: Email address (optional, used for notification)
