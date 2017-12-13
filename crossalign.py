@@ -71,8 +71,8 @@ output_handle.close()
 if args.FORMfeature[0]!="dataset":
 	Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
 	if Rpat.match(args.FORMsequence_two[0]) == None:
-		print args.FORM
-		args.FORMsequence_two[0] = ">input_rna2\n"+args.FORMsequence_two[0]
+		#print args.FORM
+		args.FORMsequence_two[0] = ">input_rna2\n"+str(args.FORMsequence_two[0])
 	rnaSeq2 = []
 	for record in SeqIO.parse(StringIO.StringIO(args.FORMsequence_two[0]), "fasta"):
 		rnaSeq2.append(record)
