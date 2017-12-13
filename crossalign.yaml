@@ -42,7 +42,7 @@ form_fields:
         description: RNA Sequences 1 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
         required: Yes
         type: textarea
-        min_length: 25
+        min_length: 0
         max_length: 50000
     -   name: feature
         description: <b>Modes of Dynamic Time Warping (DTW; see the Tutorial/Documentation for the details)</b> 
@@ -73,7 +73,6 @@ form_fields:
                   - sequence_two
                 shows:
                   - organism
-                
     -   name: organism
         description: <b>Organism (all lincRNAs from Ensemble)</b> 
         type: radio
@@ -88,17 +87,13 @@ form_fields:
                 value:  orang 
             -   title:  Rat
                 value:  rat
-                
-                
     -   name: sequence_two
         description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
         required: No
         hidden: No
         type: textarea
-        min_length: 25
-        max_length: 50000
-
-                                   
+        min_length:0
+        max_length: 50000                             
     -   name: email
         description: Email address (optional, used for notification)
         type: email
