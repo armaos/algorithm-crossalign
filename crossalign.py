@@ -67,18 +67,19 @@ rnaFile = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna.fasta")
 output_handle = open(rnaFile, "w")
 SeqIO.write(rnaSeq, output_handle, "fasta")
 output_handle.close()
+
+if args.FORMfeature[0]!="dataset":
+	Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
+	if Rpat.match(args.FORMsequence_two[0]) == None:
+		args.FORMsequence_two[0] = ">input_rna2\n"+args.FORMsequence_two[0]
+	rnaSeq2 = []
+	for record in SeqIO.parse(StringIO.StringIO(args.FORMsequence_two[0]), "fasta"):
+		rnaSeq2.append(record)
 	
-Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
-if Rpat.match(args.FORMsequence_two[0]) == None:
-	args.FORMsequence_two[0] = ">input_rna2\n"+args.FORMsequence_two[0]
-rnaSeq2 = []
-for record in SeqIO.parse(StringIO.StringIO(args.FORMsequence_two[0]), "fasta"):
-	rnaSeq2.append(record)
-	
-rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
-output_handle = open(rnaFile2, "w")
-SeqIO.write(rnaSeq2, output_handle, "fasta")
-output_handle.close()
+	rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
+	output_handle = open(rnaFile2, "w")
+	SeqIO.write(rnaSeq2, output_handle, "fasta")
+	output_handle.close()
 
 
 
