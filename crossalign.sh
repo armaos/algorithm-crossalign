@@ -24,11 +24,13 @@ awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > in
 if (($network!="dataset"))
 then
 	cp input.fasta input_bis.fasta
+	echo $network
 	word1=$(wc input_bis.fasta | awk '{print $1}')
 	word2=$(wc input2.fasta | awk '{print $1}')
 	word=$word1+$word2
+	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
+
 fi
-awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
 
 if [[ $word -gt 2 ]]
 then
