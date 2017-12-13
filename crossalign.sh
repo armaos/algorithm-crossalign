@@ -73,4 +73,13 @@ then
 # 	end0=$(tail -n 1 ./outputs/matches.txt | awk '{print $NF}')
 	awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
 fi
+
+if (($network=="dataset"))
+then
+	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
+	python multipval.py
+	awk '{print $1,$2,$3,$4,$6}' ./outputs/table_final2.txt > ./outputs/table_final3.txt
+	zip -r ./outputs/Submission ./outputs/table_final3.txt
+	#awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
+fi
 cd ../..

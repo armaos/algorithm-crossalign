@@ -44,23 +44,58 @@ form_fields:
         type: textarea
         min_length: 25
         max_length: 50000
-    -   name: sequence_two
-        description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
-        required: Yes
-        type: textarea
-        min_length: 25
-        max_length: 50000
     -   name: feature
-        description: <b>Modes of Dynamic Time Warping(DTW; see the Tutorial/Documentation for the details)</b> 
+        description: <b>Modes of Dynamic Time Warping (DTW; see the Tutorial/Documentation for the details)</b> 
         type: radio
         required: Yes                
         entries:
             -   title:  Standard DTW
                 value:  normal  
+                shows:
+                  - sequence_two
+                hides:
+                  - organism
             -   title:  OBE-DTW
                 value:  obe  
+                shows:
+                  - sequence_two
+                hides:
+                  - organism
             -   title:  Fragmented OBE-DTW
                 value:  fragment
+                shows:
+                  - sequence_two
+                hides:
+                  - organism
+            -   title:  Dataset (lincRNAs of a specific organism)
+                value:  dataset
+                hides:
+                  - sequence_two
+                shows:
+                  - organism
+                
+     -  name: organism
+        description: <b>Organism (all lincRNAs from Ensemble)</b> 
+        type: radio
+        required: No                
+        entries:
+            -   title:  Human
+                value:  human 
+            -   title:  Mouse
+                value:  mouse
+            -   title:  Orangutan
+                value:  orang 
+            -   title:  Rat
+                value:  rat
+                
+                
+    -   name: sequence_two
+        description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
+        required: No
+        type: textarea
+        min_length: 25
+        max_length: 50000
+
                                    
     -   name: email
         description: Email address (optional, used for notification)
@@ -68,10 +103,20 @@ form_fields:
         required: No  
  
 
-#examples:
-#    -   reference_id:   90477
-#        title:          Xist
-#        description:    The complete profile of murine Xist (17'918 nucleotides)   
+examples:
+    -   reference_id:   114147
+        title:          Standard DTW of Xist Rep-A 
+        description:    The Rep-A of Orangutan against the Rep-A of Human
+        
+examples:
+    -   reference_id:   116873
+        title:          DTW-OBE of HOTAIR D2
+        description:    D2 of Human against the entire HOTAIR of mouse
+
+examples:
+    -   reference_id:   116920
+        title:          A Fragmented OBE-DTW of an entire HIV genome
+        description:    A fragmented HIV (genotype AE, 2001) against an entire HIV genome (genotype B, 1993)
 #
 #
 algorithm:
