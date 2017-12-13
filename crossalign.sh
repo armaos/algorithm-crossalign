@@ -21,26 +21,27 @@ random=$4
 cd tmp/$random
 
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
+if (($network!="dataset"))
+then
+	cp input.fasta input_bis.fasta
+	word1=$(wc input_bis.fasta | awk '{print $1}')
+	word2=$(wc input2.fasta | awk '{print $1}')
+	word=$word1+$word2
+fi
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
-cp input.fasta input_bis.fasta
-#cp input2.fasta outputs/input2.fasta
 
-
-word1=$(wc input_bis.fasta | awk '{print $1}')
-word2=$(wc input2.fasta | awk '{print $1}')
-word=$word1+$word2
 if [[ $word -gt 2 ]]
 then
 	python multicrosspipeline.py $network
 	zip -r ./outputs/Submission Submission
 else
 
-	python crossalignpipe.py $network > dtw_output.tmp
+	python crossalignpipe.py $network $file2 > dtw_output.tmp
 	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
 	python pvalue.py > outputs/pval.txt
 fi
 
-if (($network!="fragment"))
+if (($network!="fragment" && $network!="dataset"))
 then
 	
 	python pvalue.py > outputs/pval.txt

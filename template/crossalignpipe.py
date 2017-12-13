@@ -192,7 +192,7 @@ if mode=="dataset":
 			tmp2.close()
 			#print filez,filey
 			if len(hum1)<len(mou1):
-				subprocess.call("cat dtw_obe_dat.r | R --slave --vanilla --args "+name1+" "+name2+" "+filez+" "+filey,shell=True)
+				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+filez+" "+filey,shell=True)
 			else:
-				subprocess.call("cat dtw_obe_dat.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+filez,shell=True)	
+				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+filez,shell=True)	
 		

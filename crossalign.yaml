@@ -78,6 +78,7 @@ form_fields:
         description: <b>Organism (all lincRNAs from Ensemble)</b> 
         type: radio
         required: No                
+        hidden: Yes
         entries:
             -   title:  Human
                 value:  human 
@@ -92,6 +93,7 @@ form_fields:
     -   name: sequence_two
         description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
         required: No
+        hidden: No
         type: textarea
         min_length: 25
         max_length: 50000
@@ -107,13 +109,9 @@ examples:
     -   reference_id:   114147
         title:          Standard DTW of Xist Rep-A 
         description:    The Rep-A of Orangutan against the Rep-A of Human
-        
-examples:
     -   reference_id:   116873
         title:          DTW-OBE of HOTAIR D2
         description:    D2 of Human against the entire HOTAIR of mouse
-
-examples:
     -   reference_id:   116920
         title:          A Fragmented OBE-DTW of an entire HIV genome
         description:    A fragmented HIV (genotype AE, 2001) against an entire HIV genome (genotype B, 1993)
