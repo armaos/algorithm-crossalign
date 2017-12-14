@@ -196,6 +196,7 @@ if mode=="dataset":
 			#print filez,filey
 			if len(hum1)<len(mou1):
 				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+input1+" "+filey,shell=True)
+				print input1,filey,len(hum1),len(mou1)
 			else:
 				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+input1,shell=True)	
-		
+				print filey,input1,len(mou1),len(hum1)
