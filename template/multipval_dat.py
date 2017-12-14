@@ -13,13 +13,13 @@ for line in myfile:
 			sizeone=200
 		if size2<=300:
 			sizetwo=200
-		if size1>300 and size1[0]<=700:
+		if size1>300 and size1<=700:
 			sizeone=500
-		if size2>300 and size2[0]<=700:
+		if size2>300 and size2<=700:
 			sizetwo=500
-		if size1>700 and size1[0]<=3000:
+		if size1>700 and size1<=3000:
 			sizeone=1000
-		if size2>700 and size2[0]<=3000:
+		if size2>700 and size2<=3000:
 			sizetwo=1000
 		if size1>3000:
 			sizeone=5000
