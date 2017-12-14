@@ -168,9 +168,9 @@ if mode=="dataset":
 			else:
 				hum1.append(0)
 	files=os.listdir("organisms/try/")	
-	print os.listdir("organisms/try/")	
+	#print os.listdir("organisms/try/")	
 	for filey in files:
-		if "txt" in filey and filey!=".txt" and filez!=".txt" and filez!=".DS_Store" and filey!=".DS_Store" and filey[:3]=="ENS":
+		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
 			mou1=[]
 			file2=open("./orgamisms/try/"+filey,"r").readlines()
 			for line2 in file2:
