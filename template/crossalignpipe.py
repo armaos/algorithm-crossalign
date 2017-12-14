@@ -170,10 +170,11 @@ if mode=="dataset":
 	files=os.listdir("organisms/try/")	
 	print os.listdir("organisms/try/")	
 	for filey in files:
-		print filey
+		tablepath=os.path.dirname(os.path.realpath(__file__))
+		print tablepath
 		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
 			mou1=[]
-			file2=open("./orgamisms/try/"+filey,"r").readlines()
+			file2=open(tablepath+"/orgamisms/try/"+filey,"r").readlines()
 			for line2 in file2:
 				camp2=line2.split("\t")
 				if len(camp2)==4:
