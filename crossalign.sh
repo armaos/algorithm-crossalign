@@ -25,6 +25,7 @@ fi
 
 if (($network=="obe"))
 then
+	echo "noooooooooo"
 	cp input.fasta input_bis.fasta
 	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
 # 	python crossalignpipe.py $network $file2 > dtw_output.tmp
