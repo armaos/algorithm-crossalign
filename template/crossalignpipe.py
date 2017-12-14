@@ -172,7 +172,7 @@ if mode=="dataset":
 	for filey in files:
 		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
 			mou1=[]
-			file2=open("./orgamisms/try/"+filey,"r").readlines()
+			file2=open("orgamisms/try/"+filey,"r").readlines()
 			for line2 in file2:
 				camp2=line2.split("\t")
 				if len(camp2)==4:
