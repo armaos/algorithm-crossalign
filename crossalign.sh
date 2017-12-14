@@ -11,7 +11,7 @@ cd tmp/$random
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
 
 #if (($network=="normal"))
-if [$network=="normal"]
+if [$network="normal"]
 then
 	echo $file; echo $file2
 	cp input.fasta input_bis.fasta
@@ -24,7 +24,7 @@ then
 fi
 
 
-if [$network=="obe"]
+if [$network="obe"]
 then
 	echo "noooooooooo"
 	cp input.fasta input_bis.fasta
