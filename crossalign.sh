@@ -21,10 +21,12 @@ random=$4
 cd tmp/$random
 
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
+
+echo $network
+
 if (($network!=dataset))
 then
 	cp input.fasta input_bis.fasta
-	echo $network
 	word1=$(wc input_bis.fasta | awk '{print $1}')
 	word2=$(wc input2.fasta | awk '{print $1}')
 	word=$word1+$word2

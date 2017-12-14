@@ -90,6 +90,7 @@ os.chdir(SCRIPT_PATH)
 
 args.FORMtitle = "".join([t.replace(' ', '_') for t in args.FORMtitle])
 if args.FORMfeature[0]!="dataset":
+	print "ok"
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,rnaFile2,args.FORMfeature[0],random_number,args.FORMemail[0])
 else:
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,args.FORMorganism[0],args.FORMfeature[0],random_number,args.FORMemail[0])
@@ -148,6 +149,9 @@ if p.returncode == 0:
 	if args.FORMfeature[0]=="fragment":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign_fragments.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
+	f args.FORMfeature[0]=="dataset":
+		with open(os.path.join(SCRIPT_PATH, "index.crossalign_dataset.html"), "r") as template_file:
+			   template_string = "".join(template_file.readlines())
 	import datetime
 
 	# create template from the string
@@ -187,6 +191,17 @@ if p.returncode == 0:
 		)
 
 	if args.FORMfeature[0]=="fragment":
+	
+		c = Context(
+			{
+			   "title": args.FORMtitle,
+			   "randoms" : random_number,
+			   "feature" : args.FORMfeature[0],
+			   "generated" : str(datetime.datetime.now()),
+			   "summary" : summary_line
+		   }
+		)
+	if args.FORMfeature[0]=="dataset":
 	
 		c = Context(
 			{
