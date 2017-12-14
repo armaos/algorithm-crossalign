@@ -33,7 +33,7 @@ mode=str(sys.argv[1])
 
 #print filez
 
-if mode!="fragment":
+if mode!="fragment" and mode!="dataset":
 
 	os.system("cp input2.fasta input.fasta")
 	os.system("python crosspipeline.py global")
@@ -168,13 +168,13 @@ if mode=="dataset":
 			else:
 				hum1.append(0)
 	files=os.listdir("organisms/try/")	
-	print os.listdir("organisms/try/")	
+	#print os.listdir("organisms/try/")	
 	for filey in files:
 		tablepath=os.path.dirname(os.path.realpath(__file__))
 		print tablepath
 		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
 			mou1=[]
-			file2=open("/organisms/try/"+filey,"r").readlines()
+			file2=open("./organisms/try/"+filey,"r").readlines()
 			for line2 in file2:
 				camp2=line2.split("\t")
 				if len(camp2)==4:
@@ -195,7 +195,7 @@ if mode=="dataset":
 			tmp2.close()
 			#print filez,filey
 			if len(hum1)<len(mou1):
-				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+filez+" "+filey,shell=True)
+				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+input1+" "+filey,shell=True)
 			else:
-				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+filez,shell=True)	
+				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+input1,shell=True)	
 		
