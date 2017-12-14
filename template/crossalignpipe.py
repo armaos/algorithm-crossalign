@@ -167,35 +167,34 @@ if mode=="dataset":
 				hum1.append(float(camp[2]))
 			else:
 				hum1.append(0)
-	files=os.listdir("organisms/try/")	
-	#print os.listdir("organisms/try/")	
-	for filey in files:
-		print filey
-		os.system("pwd")
-		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
-			mou1=[]
-			file2=open("./orgamisms/try/"+filey,"r").readlines()
-			for line2 in file2:
-				camp2=line2.split("\t")
-				if len(camp2)==4:
-					if camp2[1]!="-\n":
-						mou1.append(float(camp2[2]))
-					else:
-						mou1.append(0)
-			#print hum1,mou1
-			tmp1=open("tmp1.txt","w")
-			tmp2=open("tmp2.txt","w")
-			for x in hum1:
-				tmp1.write(str(x)+"\n")
-			for y in mou1:
-				tmp2.write(str(y)+"\n")
-			name1="tmp1.txt"
-			name2="tmp2.txt"
-			tmp1.close()
-			tmp2.close()
-			#print filez,filey
-			if len(hum1)<len(mou1):
-				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+filez+" "+filey,shell=True)
-			else:
-				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+filez,shell=True)	
-		
+	#files=os.listdir("organisms/try/")	
+	print os.listdir("organisms/try/")	
+	# for filey in files:
+# 		print filey
+# 		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
+# 			mou1=[]
+# 			file2=open("./orgamisms/try/"+filey,"r").readlines()
+# 			for line2 in file2:
+# 				camp2=line2.split("\t")
+# 				if len(camp2)==4:
+# 					if camp2[1]!="-\n":
+# 						mou1.append(float(camp2[2]))
+# 					else:
+# 						mou1.append(0)
+# 			#print hum1,mou1
+# 			tmp1=open("tmp1.txt","w")
+# 			tmp2=open("tmp2.txt","w")
+# 			for x in hum1:
+# 				tmp1.write(str(x)+"\n")
+# 			for y in mou1:
+# 				tmp2.write(str(y)+"\n")
+# 			name1="tmp1.txt"
+# 			name2="tmp2.txt"
+# 			tmp1.close()
+# 			tmp2.close()
+# 			#print filez,filey
+# 			if len(hum1)<len(mou1):
+# 				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+filez+" "+filey,shell=True)
+# 			else:
+# 				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+filez,shell=True)	
+# 		
