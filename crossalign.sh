@@ -12,7 +12,7 @@ awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > in
 
 if [ $network == "normal" ]
 then
-	echo $network
+	echo "normal"
 	cp input.fasta input_bis.fasta
 	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
 	python crossalignpipe.py $network $file2 > dtw_output.tmp
@@ -25,7 +25,7 @@ fi
 
 if [ $network == "obe" ]
 then
-	echo $network
+	echo "obe"
 	cp input.fasta input_bis.fasta
 	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
 	python crossalignpipe.py $network $file2 > dtw_output.tmp
@@ -45,7 +45,7 @@ fi
 
 if [ $network == "fragment" ]
 then
-	echo $network
+	echo "fragment"
 	cp input.fasta input_bis.fasta
 	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
 	python crossalignpipe.py $network $file2 > dtw_output.tmp
@@ -58,10 +58,10 @@ fi
 
 if [ $network == "dataset" ]
 then
-	echo $network
+	echo "dataset"
 	python crossalignpipe.py $network $file2 > dtw_output.tmp
 	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
-	python multipval.py
+	#python multipval.py
 	awk '{print $1,$2,$3,$4,$6}' ./outputs/table_final2.txt > ./outputs/table_final3.txt
 	zip -r ./outputs/Submission ./outputs/table_final3.txt
 	#awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
