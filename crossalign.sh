@@ -4,46 +4,23 @@ network=$3
 random=$4
 
 
-#
 
-# word=$(wc input.fasta | awk '{print $1}')
-# if [[ $word -gt 1 ]]
-# then
-# 	python multicrosspipeline.py $network
-# 	zip -r ./outputs/Submission Submission
-# else
-# 
-# 	python crosspipeline.py $network
-# 	step=$(<./outputs/smooth.txt)
-# 	awk -v step=$step 'NR == 1 || NR % step == 0' ./outputs/table.txt | awk -F'\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $2, $3, $4}END{printf "</tbody>\n"}'  > ./outputs/table.html
-# fi
 
 cd tmp/$random
 
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
 
-echo $network
-
-if (($network!=dataset))
+if (($network!="dataset"))
 then
 	cp input.fasta input_bis.fasta
-	word1=$(wc input_bis.fasta | awk '{print $1}')
-	word2=$(wc input2.fasta | awk '{print $1}')
-	word=$word1+$word2
 	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
 
 fi
 
-if [[ $word -gt 2 ]]
-then
-	python multicrosspipeline.py $network
-	zip -r ./outputs/Submission Submission
-else
 
-	python crossalignpipe.py $network $file2 > dtw_output.tmp
-	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
-	python pvalue.py > outputs/pval.txt
-fi
+python crossalignpipe.py $network $file2 > dtw_output.tmp
+awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+
 
 if (($network!="fragment" && $network!="dataset"))
 then
