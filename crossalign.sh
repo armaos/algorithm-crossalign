@@ -10,7 +10,8 @@ cd tmp/$random
 
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
 
-if (($network=="normal"))
+#if (($network=="normal"))
+if [$network=="normal"]
 then
 	echo $file; echo $file2
 	cp input.fasta input_bis.fasta
@@ -23,7 +24,7 @@ then
 fi
 
 
-if (($network=="obe"))
+if [$network=="obe"]
 then
 	echo "noooooooooo"
 	cp input.fasta input_bis.fasta
@@ -43,25 +44,25 @@ then
 # 	Rscript overlap.r
 fi
 
-if (($network=="fragment"))
-then
-	cp input.fasta input_bis.fasta
-	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
-	python crossalignpipe.py $network $file2 > dtw_output.tmp
-	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
-	sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
-	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
-	python multipval.py
-	awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
-fi
-
-if (($network=="dataset"))
-then
-	python crossalignpipe.py $network $file2 > dtw_output.tmp
-	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
-	python multipval.py
-	awk '{print $1,$2,$3,$4,$6}' ./outputs/table_final2.txt > ./outputs/table_final3.txt
-	zip -r ./outputs/Submission ./outputs/table_final3.txt
-	#awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
-fi
+# if (($network=="fragment"))
+# then
+# 	cp input.fasta input_bis.fasta
+# 	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
+# 	python crossalignpipe.py $network $file2 > dtw_output.tmp
+# 	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+# 	sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
+# 	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
+# 	python multipval.py
+# 	awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
+# fi
+# 
+# if (($network=="dataset"))
+# then
+# 	python crossalignpipe.py $network $file2 > dtw_output.tmp
+# 	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
+# 	python multipval.py
+# 	awk '{print $1,$2,$3,$4,$6}' ./outputs/table_final2.txt > ./outputs/table_final3.txt
+# 	zip -r ./outputs/Submission ./outputs/table_final3.txt
+# 	#awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
+# fi
 cd ../..
