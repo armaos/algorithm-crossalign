@@ -169,9 +169,8 @@ if mode=="dataset":
 				hum1.append(0)
 	files=os.listdir("organisms/try/")	
 	#print os.listdir("organisms/try/")	
+	leng=open("leng.txt","w")
 	for filey in files:
-		tablepath=os.path.dirname(os.path.realpath(__file__))
-		print tablepath
 		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
 			mou1=[]
 			file2=open("./organisms/try/"+filey,"r").readlines()
@@ -196,7 +195,8 @@ if mode=="dataset":
 			#print filez,filey
 			if len(hum1)<len(mou1):
 				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+input1+" "+filey,shell=True)
-				print input1,filey,len(hum1),len(mou1)
+				leng.write(input1+" "+filey+" "+str(len(hum1))+" "+str(len(mou1))+"\n")
 			else:
 				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+input1,shell=True)	
-				print filey,input1,len(mou1),len(hum1)
+				leng.write(filey+" "+input1+" "+str(len(mou1))+" "+str(len(hum1))+"\n")
+	leng.close()
