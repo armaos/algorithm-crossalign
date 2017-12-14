@@ -168,8 +168,7 @@ if mode=="dataset":
 			else:
 				hum1.append(0)
 	#files=os.listdir("organisms/try/")	
-	#print os.listdir("organisms/try/")	
-	os.system("ls")
+	print os.listdir("organisms/try/")	
 	# for filey in files:
 # 		print filey
 # 		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
