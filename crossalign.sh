@@ -21,7 +21,7 @@ random=$4
 cd tmp/$random
 
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
-if (($network!="dataset"))
+if (($network!=dataset))
 then
 	cp input.fasta input_bis.fasta
 	echo $network
