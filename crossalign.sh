@@ -26,19 +26,19 @@ if (($network=="obe"))
 then
 	cp input.fasta input_bis.fasta
 	awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > input2.fasta
-	python crossalignpipe.py $network $file2 > dtw_output.tmp
-	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
-	python pvalue.py > outputs/pval.txt
-	sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
-	#for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)' | awk '(length($1)>0)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
-	cp shorter.txt cross_short.txt
-	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
-	end0=$(wc cross_short.txt | awk '{print $1}')
-	final0=$(($end0+$start0))
-	echo $final0 > outputs/end.txt
-	awk -v start=$start0 -v end=$final0 '($1>=start && $1<=end)' longer.txt > cross_long.txt
-	head -n 1 ./outputs/matches.txt | awk '{print $1}' > outputs/start.txt
-	Rscript overlap.r
+# 	python crossalignpipe.py $network $file2 > dtw_output.tmp
+# 	awk '(NF==2 && $2~/0./){printf "%.3f\n",$2}' dtw_output.tmp > outputs/score.txt
+# 	python pvalue.py > outputs/pval.txt
+# 	sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
+# 	#for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)' | awk '(length($1)>0)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
+# 	cp shorter.txt cross_short.txt
+# 	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
+# 	end0=$(wc cross_short.txt | awk '{print $1}')
+# 	final0=$(($end0+$start0))
+# 	echo $final0 > outputs/end.txt
+# 	awk -v start=$start0 -v end=$final0 '($1>=start && $1<=end)' longer.txt > cross_long.txt
+# 	head -n 1 ./outputs/matches.txt | awk '{print $1}' > outputs/start.txt
+# 	Rscript overlap.r
 fi
 
 if (($network=="fragment"))

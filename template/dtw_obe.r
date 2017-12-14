@@ -16,7 +16,7 @@ name2
 alignment$normalizedDistance
 alignment$index2
 #plot(alignment,type="threeway",col=2,lwd=3,xlab="CROSS profile 1",ylab="CROSS profile 2",main="Structural alignment")
-dev.off()
+#dev.off()
 
 #OBE
 

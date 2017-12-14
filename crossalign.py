@@ -118,7 +118,7 @@ if p.returncode == 0:
 		distance=line[:-1]
 		
 	#P-VALUE	
-	if args.FORMfeature[0]!="fragment":
+	if args.FORMfeature[0]!="fragment" and args.FORMfeature[0]!="dataset":
 		myfile2=open(TMP_PATH+"pval.txt","r").readlines()
 		for line in myfile2:
 			pval=line[:-1]
