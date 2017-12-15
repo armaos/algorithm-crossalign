@@ -112,10 +112,11 @@ if p.returncode == 0:
 	settings.configure(TEMPLATE_DIRS=(os.path.join(SCRIPT_PATH,'./')), DEBUG=True, TEMPLATE_DEBUG=True)
 
 	# read the template file into a variable
-	i=0
-	myfile=open(TMP_PATH+"score.txt","r").readlines()
-	for line in myfile:
-		distance=line[:-1]
+	if args.FORMfeature[0]!="dataset":
+		i=0
+		myfile=open(TMP_PATH+"score.txt","r").readlines()
+		for line in myfile:
+			distance=line[:-1]
 		
 	#P-VALUE	
 	if args.FORMfeature[0]!="fragment" and args.FORMfeature[0]!="dataset":
