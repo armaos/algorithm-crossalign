@@ -102,13 +102,13 @@ form_fields:
  
 
 examples:
-    -   reference_id:   114147
+    -   reference_id:   117190
         title:          Standard DTW of Xist Rep-A 
         description:    The Rep-A of Orangutan against the Rep-A of Human
-    -   reference_id:   116873
+    -   reference_id:   117188
         title:          DTW-OBE of HOTAIR D2
         description:    D2 of Human against the entire HOTAIR of mouse
-    -   reference_id:   116920
+    -   reference_id:   117192
         title:          A Fragmented OBE-DTW of an entire HIV genome
         description:    A fragmented HIV (genotype AE, 2001) against an entire HIV genome (genotype B, 1993)
 #
