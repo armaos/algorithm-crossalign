@@ -83,10 +83,12 @@ form_fields:
                 value:  human 
             -   title:  Mouse
                 value:  mouse
-            -   title:  Orangutan
-                value:  orang 
+            -   title:  Macaque
+                value:  macaq 
             -   title:  Rat
                 value:  rat
+            -   title:  Zebrafish
+                value:  zebra
     -   name: sequence_two
         description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
         required: No
