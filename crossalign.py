@@ -151,7 +151,7 @@ if p.returncode == 0:
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign_fragments.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
 	if args.FORMfeature[0]=="dataset":
-		with open(os.path.join(SCRIPT_PATH, "index.crossalign_dataset.html"), "r") as template_file:
+		with open(os.path.join(SCRIPT_PATH, "index.dataset.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
 	import datetime
 
