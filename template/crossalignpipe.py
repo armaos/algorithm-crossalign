@@ -159,6 +159,7 @@ if mode=="fragment":
 		
 if mode=="dataset":	
 	org=str(sys.argv[2])
+	print org
 	hum1=[]
 	for line in file1:
 		camp=line.split("\t")
