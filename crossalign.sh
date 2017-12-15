@@ -58,7 +58,7 @@ fi
 
 if [ $network == "dataset" ]
 then
-	echo "dataset"
+	echo "dataset"; echo $file2
 	python crossalignpipe.py $network $file2 > dtw_output.tmp
 	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
 	paste ./outputs/table_final.txt leng.txt > table_big.txt

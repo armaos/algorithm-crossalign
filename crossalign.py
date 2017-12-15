@@ -90,9 +90,9 @@ os.chdir(SCRIPT_PATH)
 
 args.FORMtitle = "".join([t.replace(' ', '_') for t in args.FORMtitle])
 if args.FORMfeature[0]!="dataset":
-	print "ok"
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,rnaFile2,args.FORMfeature[0],random_number,args.FORMemail[0])
 else:
+	print args.FORMorganism[0]
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,args.FORMorganism[0],args.FORMfeature[0],random_number,args.FORMemail[0])
 
 p = subprocess.Popen(command, cwd=SCRIPT_PATH, shell=True)
