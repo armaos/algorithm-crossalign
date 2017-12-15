@@ -158,7 +158,7 @@ if mode=="fragment":
 		i=i+1
 		
 if mode=="dataset":	
-	org=mode=str(sys.argv[2])
+	org=str(sys.argv[2])
 	hum1=[]
 	for line in file1:
 		camp=line.split("\t")
