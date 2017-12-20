@@ -36,7 +36,8 @@ for line in myfile:
 		i=i+1
 	pval=float(float(tot)/float(i))
 	if 	pval<0.0000001:
-		tmp.write(line[:-1]+"\t<e-06\n")
+		pval=0.000001
+		tmp.write(line[:-1]+"\t"+"<"+("{:.1e}".format(pval))+"\n")
 	else:
 		tmp.write(line[:-1]+"\t"+("{:.1e}".format(pval))+"\n")
 tmp.close()
