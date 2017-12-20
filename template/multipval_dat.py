@@ -34,5 +34,8 @@ for line in myfile:
 			i=i+1
 		pval=float(float(tot)/float(i))	
 		#tmp.write(line[:-1]+"\t"+("{:.1e}".format(pval))+"\n")
-		tmp.write(camp[0]+"\t"+camp[1]+"\t"+score+"\t"+camp[3]+"\t"+camp[4]+"\t"+("{:.1e}".format(pval))+"\n")
+		if pval<0.0000001:
+			tmp.write(camp[0]+"\t"+camp[1]+"\t"+score+"\t"+camp[3]+"\t"+camp[4]+"\t<e-06\n")
+		else:
+			tmp.write(camp[0]+"\t"+camp[1]+"\t"+score+"\t"+camp[3]+"\t"+camp[4]+"\t"+("{:.1e}".format(pval))+"\n")
 tmp.close()
