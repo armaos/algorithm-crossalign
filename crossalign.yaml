@@ -44,6 +44,12 @@ form_fields:
         type: textarea
         min_length: 25
         max_length: 50000
+    -   name: freetext_desc
+        description: >
+            This module accepts text in fasta format. There is <a href="/new_submission/cross_file">another version</a> available that allows submission via file upload.</a>
+        type: freetext
+        required: No
+
     -   name: feature
         description: <b>Modes of Dynamic Time Warping (DTW; see the Tutorial/Documentation for the details)</b>
         type: radio

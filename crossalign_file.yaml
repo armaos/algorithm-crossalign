@@ -98,7 +98,6 @@ file_uploads:
         min_sequences:  1
         min_indiv_len:  25
 
-file_uploads:
     -   name: sequence_two
         filename: B.fasta
         description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
