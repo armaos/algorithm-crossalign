@@ -110,7 +110,7 @@ file_uploads:
 
 
 algorithm:
-    command:              "crossalign.py -text=No -fileA=<file0> -fileA=<file1> -output_dir=<output_dir>"
+    command:              "crossalign.py -text=No -fileA=<file0> -fileB=<file1> -output_dir=<output_dir>"
     processing_timeout:   86400
 
 # for the processing part
