@@ -46,7 +46,7 @@ form_fields:
         max_length: 50000
     -   name: freetext_desc
         description: >
-            This module accepts text in fasta format. There is <a href="/new_submission/cross_file">another version</a> available that allows submission via file upload.</a>
+            This module accepts text in fasta format. There is <a href="/new_submission/crossalign_file">another version</a> available that allows submission via file upload.</a>
         type: freetext
         required: No
 
