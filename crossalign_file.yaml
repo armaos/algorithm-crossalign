@@ -1,6 +1,6 @@
 ---
 title:      CROSSalign
-name:       crossalign
+name:       crossalign_file
 title_styled:   >
     prova
 version:    1.0
@@ -38,12 +38,6 @@ form_fields:
         description: Submission label (optional)
         required: No
         type: text
-    -   name: sequence_one
-        description: RNA Sequences 1 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
-        required: Yes
-        type: textarea
-        min_length: 25
-        max_length: 50000
     -   name: feature
         description: <b>Modes of Dynamic Time Warping (DTW; see the Tutorial/Documentation for the details)</b>
         type: radio
@@ -89,32 +83,35 @@ form_fields:
                 value:  rat
             -   title:  Zebrafish
                 value:  zebra
-    -   name: sequence_two
-        description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
-        required: No
-        hidden: No
-        type: textarea
-        max_length: 50000
+
     -   name: email
         description: Email address (optional, used for notification)
         type: email
         required: No
 
+file_uploads:
+    -   name: sequence_one
+        filename: A.fasta
+        description: RNA Sequences 1 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
+        format: fasta
+        required: Yes
+        min_sequences:  1
+        min_indiv_len:  25
 
-examples:
-    -   reference_id:   117190
-        title:          Standard DTW of Xist Rep-A
-        description:    The Rep-A of Orangutan against the Rep-A of Human
-    -   reference_id:   117188
-        title:          DTW-OBE of HOTAIR D2
-        description:    D2 of Human against the entire HOTAIR of mouse
-    -   reference_id:   117192
-        title:          A Fragmented OBE-DTW of an entire HIV genome
-        description:    A fragmented HIV (genotype AE, 2001) against an entire HIV genome (genotype B, 1993)
-#
-#
+file_uploads:
+    -   name: sequence_two
+        filename: B.fasta
+        description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
+        format: fasta
+        required: No
+        hidden: No
+        min_sequences:  1
+        min_indiv_len:  25
+
+
+
 algorithm:
-    command:              "crossalign.py -text=Yes -output_dir=<output_dir>"
+    command:              "crossalign.py -text=No -fileA=<file0> -fileA=<file1> -output_dir=<output_dir>"
     processing_timeout:   86400
 
 # for the processing part

@@ -21,11 +21,26 @@ def copyfolder(src, dst):
         else: raise
 
 # read the task definition yaml file
-with open(os.path.join(SCRIPT_PATH, "crossalign.yaml"), "r") as task_f:
-    task_definition = yaml.load(task_f)
+if sys.argv[1] == "-text=Yes":
+	# read the task definition yaml file
+	with open(os.path.join(SCRIPT_PATH, "crossalign.yaml"), "r") as task_f:
+		task_definition = yaml.load(task_f)
+	input_mode = "text"
+else:
+    with open(os.path.join(SCRIPT_PATH, "crossalign_file.yaml"), "r") as task_f:
+		task_definition = yaml.load(task_f)
+    input_mode = "file"
+
 
 parser = argparse.ArgumentParser(
    description='Launches crossalign algorithm with properly parset parameters')
+
+parser.add_argument(
+    '-text', type=str, nargs="?", help='Just to enable text mode')
+
+if input_mode == "file":
+    parser.add_argument('-fileA', type=str, default=["none"], nargs=1, help='Fasta sequence')
+    parser.add_argument('-fileB', type=str, default=["none"], nargs=1, help='Fasta sequence')
 
 parser.add_argument(
    '-output_dir', type=str, nargs=1,
@@ -56,32 +71,56 @@ import re
 import StringIO
 from Bio import SeqIO
 
-Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
-if Rpat.match(args.FORMsequence_one[0]) == None:
-	args.FORMsequence_one[0] = ">input_rna\n"+args.FORMsequence_one[0]
-rnaSeq = []
-for record in SeqIO.parse(StringIO.StringIO(args.FORMsequence_one[0]), "fasta"):
-	rnaSeq.append(record)
-	
-rnaFile = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna.fasta")
-output_handle = open(rnaFile, "w")
-SeqIO.write(rnaSeq, output_handle, "fasta")
-output_handle.close()
 
-if args.FORMfeature[0]!="dataset":
-	Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
-	if Rpat.match(args.FORMsequence_two) == None:
-		#print args.FORM
-		args.FORMsequence_two = ">input_rna2\n"+args.FORMsequence_two
-	rnaSeq2 = []
-	for record in SeqIO.parse(StringIO.StringIO(args.FORMsequence_two), "fasta"):
-		rnaSeq2.append(record)
-	
-	rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
-	output_handle = open(rnaFile2, "w")
-	SeqIO.write(rnaSeq2, output_handle, "fasta")
-	output_handle.close()
+if input_mode == "text":
+    Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
+    if Rpat.match(args.FORMsequence_one[0]) == None:
+    	args.FORMsequence_one[0] = ">input_rna\n"+args.FORMsequence_one[0]
+    rnaSeq = []
+    for record in SeqIO.parse(StringIO.StringIO(args.FORMsequence_one[0]), "fasta"):
+    	rnaSeq.append(record)
 
+    rnaFile = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna.fasta")
+    output_handle = open(rnaFile, "w")
+    SeqIO.write(rnaSeq, output_handle, "fasta")
+    output_handle.close()
+
+    if args.FORMfeature[0]!="dataset":
+    	Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
+    	if Rpat.match(args.FORMsequence_two) == None:
+    		#print args.FORM
+    		args.FORMsequence_two = ">input_rna2\n"+args.FORMsequence_two
+    	rnaSeq2 = []
+    	for record in SeqIO.parse(StringIO.StringIO(args.FORMsequence_two), "fasta"):
+    		rnaSeq2.append(record)
+
+    	rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
+    	output_handle = open(rnaFile2, "w")
+    	SeqIO.write(rnaSeq2, output_handle, "fasta")
+    	output_handle.close()
+
+else:
+    rnaSeq = []
+    rnaFile = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna.fasta")
+    input_handle = open(args.fileA[0], "rU")
+    for record in SeqIO.parse(input_handle, "fasta"):
+        rnaSeq.append(record)
+
+    rnaFile = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna.fasta")
+    output_handle = open(rnaFile, "w")
+    SeqIO.write(rnaSeq, output_handle, "fasta")
+    output_handle.close()
+
+    if args.FORMfeature[0]!="dataset":
+        rnaSeq2 = []
+        rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
+        input_handle = open(args.fileB[0], "rU")
+        for record in SeqIO.parse(input_handle, "fasta"):
+            rnaSeq.append(record)
+
+        output_handle = open(rnaFile2, "w")
+        SeqIO.write(rnaSeq, output_handle, "fasta")
+        output_handle.close()
 
 
 
@@ -117,36 +156,36 @@ if p.returncode == 0:
 		myfile=open(TMP_PATH+"score.txt","r").readlines()
 		for line in myfile:
 			distance=line[:-1]
-		
-	#P-VALUE	
+
+	#P-VALUE
 	if args.FORMfeature[0]!="fragment" and args.FORMfeature[0]!="dataset":
 		myfile2=open(TMP_PATH+"pval.txt","r").readlines()
 		for line in myfile2:
 			pval=line[:-1]
-		
-	summary_line=''
-	
-	
-	
 
-		
-	
+	summary_line=''
+
+
+
+
+
+
 	#HTML INDEX DECISION
 	if args.FORMfeature[0]=="normal":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
-			   
+
 	if args.FORMfeature[0]=="obe":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign_obe.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
-			   
+
 		myfile2=open(TMP_PATH+"start.txt","r").readlines()
 		for line in myfile2:
 			begin=line[:-1]
 		myfile3=open(TMP_PATH+"end.txt","r").readlines()
 		for line2 in myfile3:
 			finish=line2[:-1]
-			
+
 	if args.FORMfeature[0]=="fragment":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign_fragments.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
@@ -157,12 +196,12 @@ if p.returncode == 0:
 
 	# create template from the string
 	t = Template(template_string)
-	
+
 	# context contains variables to be replaced
-	
-	
+
+
 	if args.FORMfeature[0]=="normal":
-	
+
 		c = Context(
 			{
 			   "title": args.FORMtitle,
@@ -174,9 +213,9 @@ if p.returncode == 0:
 			   "summary" : summary_line
 		   }
 		)
-	
+
 	if args.FORMfeature[0]=="obe":
-	
+
 		c = Context(
 		   {
 			   "title": args.FORMtitle,
@@ -192,7 +231,7 @@ if p.returncode == 0:
 		)
 
 	if args.FORMfeature[0]=="fragment":
-	
+
 		c = Context(
 			{
 			   "title": args.FORMtitle,
@@ -203,7 +242,7 @@ if p.returncode == 0:
 		   }
 		)
 	if args.FORMfeature[0]=="dataset":
-	
+
 		c = Context(
 			{
 			   "title": args.FORMtitle,
