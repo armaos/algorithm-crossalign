@@ -27,6 +27,7 @@ for line in myfile:
 		sizeone=5000
 	if size2[0]>3000:
 		sizetwo=5000
+	sizeone=200
 	distr=open("./distributions/"+str(sizeone)+"_"+str(sizetwo)+"_.dist","r").readlines()
 	i=1
 	tot=0
