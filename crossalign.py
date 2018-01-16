@@ -81,9 +81,10 @@ if input_mode == "text":
     	rnaSeq.append(record)
 
     rnaFile = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna.fasta")
-    output_handle = open(rnaFile, "w")
-    SeqIO.write(rnaSeq, output_handle, "fasta")
-    output_handle.close()
+    output_handle1 = open(rnaFile, "w")
+    len1=len(record.seq)
+
+
 
     if args.FORMfeature[0]!="dataset":
     	Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
@@ -95,36 +96,74 @@ if input_mode == "text":
     		rnaSeq2.append(record)
 
     	rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
-    	output_handle = open(rnaFile2, "w")
-    	SeqIO.write(rnaSeq2, output_handle, "fasta")
-    	output_handle.close()
+    	output_handle2 = open(rnaFile2, "w")
 
+        len2=len(record.seq)
+        if args.FORMfeature[0]!="fragment":
+            if len1>len2:
+                SeqIO.write(rnaSeq, output_handle2, "fasta")
+                SeqIO.write(rnaSeq2, output_handle1, "fasta")
+                output_handle2.close()
+                output_handle1.close()
+            else:
+                SeqIO.write(rnaSeq, output_handle1, "fasta")
+                SeqIO.write(rnaSeq2, output_handle2, "fasta")
+                output_handle2.close()
+                output_handle1.close()
+        elif args.FORMfeature[0]=="fragment":
+            SeqIO.write(rnaSeq, output_handle1, "fasta")
+            SeqIO.write(rnaSeq2, output_handle2, "fasta")
+            output_handle2.close()
+            output_handle1.close()
+
+    else:
+        SeqIO.write(rnaSeq, output_handle1, "fasta")
 else:
     rnaSeq = []
-    rnaFile = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna.fasta")
+
     input_handle = open(args.fileA[0], "rU")
     for record in SeqIO.parse(input_handle, "fasta"):
         rnaSeq.append(record)
 
     rnaFile = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna.fasta")
-    output_handle = open(rnaFile, "w")
-    SeqIO.write(rnaSeq, output_handle, "fasta")
-    output_handle.close()
+    output_handle1 = open(rnaFile, "w")
+    len1=len(record.seq)
 
+    #import IPython
+    #IPython.embed()
     if args.FORMfeature[0]!="dataset":
         rnaSeq2 = []
         rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
         input_handle = open(args.fileB[0], "rU")
         for record in SeqIO.parse(input_handle, "fasta"):
-            rnaSeq.append(record)
-
-        output_handle = open(rnaFile2, "w")
-        SeqIO.write(rnaSeq, output_handle, "fasta")
-        output_handle.close()
+            rnaSeq2.append(record)
 
 
+        rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
+        output_handle2 = open(rnaFile2, "w")
+        len2=len(record.seq)
 
+        if args.FORMfeature[0]!="fragment":
+            if len1>len2:
+                SeqIO.write(rnaSeq, output_handle2, "fasta")
+                SeqIO.write(rnaSeq2, output_handle1, "fasta")
+                output_handle2.close()
+                output_handle1.close()
+            else:
+                SeqIO.write(rnaSeq, output_handle1, "fasta")
+                SeqIO.write(rnaSeq2, output_handle2, "fasta")
+                output_handle2.close()
+                output_handle1.close()
+        elif args.FORMfeature[0]=="fragment":
+            SeqIO.write(rnaSeq, output_handle1, "fasta")
+            SeqIO.write(rnaSeq2, output_handle2, "fasta")
+            output_handle2.close()
+            output_handle1.close()
 
+    else:
+        SeqIO.write(rnaSeq, output_handle1, "fasta")
+
+#IPython.embed()
 os.chdir(SCRIPT_PATH)
 
 args.FORMtitle = "".join([t.replace(' ', '_') for t in args.FORMtitle])
@@ -133,7 +172,7 @@ if args.FORMfeature[0]!="dataset":
 else:
 	print args.FORMorganism[0:],args.FORMfeature[0]
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,args.FORMorganism[0:],args.FORMfeature[0],random_number,args.FORMemail[0])
-
+print command
 p = subprocess.Popen(command, cwd=SCRIPT_PATH, shell=True)
 p.communicate()
 #os.system("php "+SCRIPT_PATH+"/index.cross.html > "+SCRIPT_PATH+"/index.cross2.html")
@@ -261,3 +300,5 @@ if p.returncode == 0:
 
 else:
 	sys.exit("The execution of the C code  failed.")
+
+print "done"
