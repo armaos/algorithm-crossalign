@@ -34,11 +34,13 @@ then
 	sed 's/]/-/g' dtw_output.tmp | awk '(NF>2 && $1~/-/){$1=""; print $0}' > outputs/matches.txt
 	#for i in `awk '{print $0}' ./outputs/matches.txt | tr " " "\n" | awk '($1!~/]/)' | awk '(length($1)>0)'`; do awk '(NR=="'$i'")' shorter.txt; done > cross_short.txt
 	cp shorter.txt cross_short.txt
+	length=`wc cross_short.txt | awk '{print $1}'`
+	for ((i=1;i<=$length;i++));do pos=`awk '(NR=="'$i'")' matches.col`; awk '(NR=='$pos')' longer.txt | awk '{print "'$i'", $2}'; done > cross_long.txt
 	start0=$(head -n 1 ./outputs/matches.txt | awk '{print $1}')
 	end0=$(wc cross_short.txt | awk '{print $1}')
 	final0=$(($end0+$start0))
 	echo $final0 > outputs/end.txt
-	awk -v start=$start0 -v end=$final0 '($1>=start && $1<=end)' longer.txt > cross_long.txt
+	#awk -v start=$start0 -v end=$final0 '($1>=start && $1<=end)' longer.txt > cross_long.txt
 	head -n 1 ./outputs/matches.txt | awk '{print $1}' > outputs/start.txt
 	Rscript overlap.r
 fi
