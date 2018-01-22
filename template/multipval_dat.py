@@ -25,18 +25,18 @@ for line in myfile:
 			sizeone=5000
 		if size2>3000:
 			sizetwo=5000
-		distr=open("./distributions/"+str(sizeone)+"_"+str(sizetwo)+"_.dist","r").readlines()	
+		distr=open("./distributions/"+str(sizeone)+"_"+str(sizetwo)+"_.dist","r").readlines()
 		i=1
 		tot=0
 		for elem in distr:
 			if float(elem)<=float(score):
 				tot=tot+1
 			i=i+1
-		pval=float(float(tot)/float(i))	
+		pval=float(float(tot)/float(i))
 		#tmp.write(line[:-1]+"\t"+("{:.1e}".format(pval))+"\n")
 		if pval<0.0000001:
 			pval=0.000001
-			tmp.write(camp[0]+"\t"+camp[1]+"\t"+score+"\t"+camp[3]+"\t"+camp[4]+"\t"+"<"+("{:.1e}".format(pval))+"\n"")
+			tmp.write(camp[0]+"\t"+camp[1]+"\t"+score+"\t"+camp[3]+"\t"+camp[4]+"\t"+"<"+("{:.1e}".format(pval))+"\n")
 		else:
 			tmp.write(camp[0]+"\t"+camp[1]+"\t"+score+"\t"+camp[3]+"\t"+camp[4]+"\t"+("{:.1e}".format(pval))+"\n")
 tmp.close()

@@ -92,8 +92,8 @@
         			<p>
         				ID: {{randoms}}<br />
         				User label: {{title}}<br />
-        				Input RNA 1: <a href="rna.fasta">FASTA file</a><br />
-        				Input RNA 2: <a href="rna2.fasta">FASTA file</a><br />
+        				Input RNA 1: <a href="rna.fasta">FASTA file</a>, <a href="table1.txt">CROSS profile </a><br />
+        				Input RNA 2: <a href="rna2.fasta">FASTA file</a>, <a href="table2.txt">CROSS profile </a><br />
                         Feature: {{feature}}<br />
         				Generated: {{generated}}<br /><br />
         			</p>
@@ -106,11 +106,11 @@
 				</div>
  -->
 				<br />
-				<!-- 
-<h2 align="center"> The normalized structural distance is 
+				<!--
+<h2 align="center"> The normalized structural distance is
 					<?php
 					$myfilename = "outputs/score.txt";
-					echo file_get_contents($myfilename); 
+					echo file_get_contents($myfilename);
 					?>
 					<br />
        			 </h2>
@@ -124,7 +124,7 @@
                     <a href="plot.png"><img src="plot.png" height="580" width="580"></a>
                 </div>
                 <br>
-                <!-- 
+                <!--
 <h2 align="center"> Secondary Structure Profile:<br>
 										<textarea class="scrollabletextbox" name="note" wrap='off'>{{summary|safe}}
 											</textarea>

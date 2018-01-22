@@ -117,7 +117,9 @@ if input_mode == "text":
             output_handle1.close()
 
     else:
+
         SeqIO.write(rnaSeq, output_handle1, "fasta")
+        output_handle1.close()
 else:
     rnaSeq = []
 
@@ -132,6 +134,7 @@ else:
     #import IPython
     #IPython.embed()
     if args.FORMfeature[0]!="dataset":
+
         rnaSeq2 = []
         rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
         input_handle = open(args.fileB[0], "rU")
@@ -161,7 +164,9 @@ else:
             output_handle1.close()
 
     else:
+
         SeqIO.write(rnaSeq, output_handle1, "fasta")
+        output_handle1.close()
 
 #IPython.embed()
 os.chdir(SCRIPT_PATH)
@@ -173,6 +178,7 @@ else:
 	print args.FORMorganism[0:],args.FORMfeature[0]
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,args.FORMorganism[0:],args.FORMfeature[0],random_number,args.FORMemail[0])
 print command
+
 p = subprocess.Popen(command, cwd=SCRIPT_PATH, shell=True)
 p.communicate()
 #os.system("php "+SCRIPT_PATH+"/index.cross.html > "+SCRIPT_PATH+"/index.cross2.html")

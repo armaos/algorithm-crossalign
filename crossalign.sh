@@ -9,6 +9,7 @@ random=$4
 cd tmp/$random
 
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
+cat input.fasta
 
 if [ $network == "normal" ]
 then
@@ -44,6 +45,8 @@ then
 	#awk -v start=$start0 -v end=$final0 '($1>=start && $1<=end)' longer.txt > cross_long.txt
 	head -n 1 ./outputs/matches.txt | awk '{print $1}' > outputs/start.txt
 	Rscript overlap.r
+	paste -d " "  cross_short.txt  cross_long.txt|  awk '{printf "%s\t%s\t%s\t%s\n", $1, $2, '$start0'+$3, $4}' >outputs/aligned.profiles.txt
+	awk -F'\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $2, $3, $4}END{printf "</tbody>\n"}' outputs/aligned.profiles.txt > ./outputs/table.html
 fi
 
 if [ $network == "fragment" ]

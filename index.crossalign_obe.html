@@ -92,8 +92,8 @@
         			<p>
         				ID: {{randoms}}<br />
         				User label: {{title}}<br />
-        				Input RNA 1: <a href="rna.fasta">FASTA file</a><br />
-        				Input RNA 2: <a href="rna2.fasta">FASTA file</a><br />
+								Input RNA 1: <a href="rna.fasta">FASTA file</a>, <a href="table1.txt">CROSS profile </a><br />
+        				Input RNA 2: <a href="rna2.fasta">FASTA file</a>, <a href="table2.txt">CROSS profile </a><br />
                         Feature: {{feature}}<br />
         				Generated: {{generated}}<br /><br />
         			</p>
@@ -106,22 +106,22 @@
 				</div>
  -->
 				<br />
-				<!-- 
-<h2 align="center"> The normalized structural distance is 
+				<!--
+<h2 align="center"> The normalized structural distance is
 					<?php
 					$myfilename = "outputs/score.txt";
-					echo file_get_contents($myfilename); 
+					echo file_get_contents($myfilename);
 					?>
 					<br />
        			 </h2>
  -->
- 				<h2 align="center"> The normalized structural distance between the secondary structure profiles is: <b>{{value}}</b> (p-value = {{pvalue}})</br></p>
+ 				<h2 align="center"> The normalized structural distance between the secondary structure profiles is: <b>{{value}}</b> (p-value = {{pvalue}})</br></p></h2>
 				</br></p>
        			 <br />
 
         		<br>
-        		
-        		<h2 align="center"> The aligned region in the longer profile is: [<b>{{start}}</b>- <b>{{end}}</b>] nucleotides</br></p>
+
+        		<h2 align="center"> The aligned region in the longer profile is: [<b>{{start}}</b>- <b>{{end}}</b>] nucleotides</br></p></h2>
 				</br></p>
        			 <br />
 
@@ -130,13 +130,47 @@
                     <a href="plot2.png"><img src="plot2.png" height="580" width="580"></a>
                 </div>
                 <br>
-                <!-- 
-<h2 align="center"> Secondary Structure Profile:<br>
-										<textarea class="scrollabletextbox" name="note" wrap='off'>{{summary|safe}}
-											</textarea>
-				<br />
-				</h2>
-				<br />
+
+								<div align="left">
+                    <a href="aligned.profiles.txt"><img height=30 width=30 src="tab.gif"> Download the complete aligned table </a>
+                <br>
+                <br />
+								<div style="height:500px; overflow:auto;">
+		            		<!--<div style="float:left;width:940px;">-->
+		 						<table cellpadding="0" cellspacing="0" border="0" id="table" class="tablesorter">
+		 							<thead>
+		 								<tr>
+											<th class="nosort"><p align="center" color="firebrick">Position RNA1</p></th>
+											<th class="nosort"><p align="center" color="firebrick">Score</p></th>
+		                  <th class="nosort"><p align="center" color="firebrick">Position RNA2</p></th>
+		                  <th class="nosort"><p align="center" color="firebrick">Score</p></th>
+										</tr>
+									</thead>
+									<script type="text/javascript">
+										var ajaxRq = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Msxml2.XMLHTTP");
+										ajaxRq.open("GET", "table.html", false);
+										ajaxRq.send(null);
+										document.write(ajaxRq.responseText);
+									</script>
+								</table>
+
+								<!-- table sorter -->
+								<script type="text/javascript" src="http://service.tartaglialab.com/static_files/js/jquery.tablesorter.js"></script>
+								<script>
+									$(document).ready(function()
+		    							{
+		        						$("#myTable").tablesorter();
+		    							}
+									);
+								</script>
+		            		<!--</div>-->
+			            	<div style="clear:both;">
+		            			<br>
+		        			</div>
+		    			</div>
+                <!--
+
+
                 <div align="left">
                     <a href="table.txt"><img height=30 width=30 src="tab.gif"> Download the complete set of data </a>
                 <br>
@@ -172,6 +206,7 @@
 						</script>
             		<!~~</div>~~>
  -->
+
 	            	<div style="clear:both;">
             			<br>
         			</div>
