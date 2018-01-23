@@ -170,13 +170,13 @@ if mode=="dataset":
 				hum1.append(float(camp[2]))
 			else:
 				hum1.append(0)
-	files=os.listdir("organisms/"+org+"/")
+	files=os.listdir("../../organisms/"+org+"/")
 	#print os.listdir("organisms/try/")
 	leng=open("leng.txt","w")
 	for filey in files:
 		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
 			mou1=[]
-			file2=open("./organisms/"+org+"/"+filey,"r").readlines()
+			file2=open("../../organisms/"+org+"/"+filey,"r").readlines()
 			for line2 in file2:
 				camp2=line2.split("\t")
 				if len(camp2)==4:
