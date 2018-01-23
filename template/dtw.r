@@ -21,7 +21,8 @@ two<-read.table("outputs/smooth2.txt")
 alignment<-dtw(one$V1,two$V1,keep=TRUE)
 plot(alignment,type="threeway",col=2,lwd=3,xlab="CROSS profile 1",ylab="CROSS profile 2",main="Structural alignment")
 dev.off()
-
+alignment_table=paste(alignment$index1, one[alignment$index1,1], alignment$index2, two[alignment$index2,1],sep='\t')
+write.table(alignment_table, "./outputs/alignment_table.txt", sep="\t",quote=FALSE,col.names=c("# Pos_RNA1 CROSS_score_RNA1 Pos_RNA2 CROSS_score_RNA2"))
 #OBE
 #alignment<-dtw(one$V1,two$V1,keep=TRUE,open.begin=TRUE,open.end=TRUE,step.pattern=asymmetric,dist.method="Manhattan")
 #alignment$normalizedDistance

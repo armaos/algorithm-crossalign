@@ -54,6 +54,7 @@ form_fields:
         description: <b>Modes of Dynamic Time Warping (DTW; see the Tutorial/Documentation for the details)</b>
         type: radio
         required: Yes
+        default: normal
         entries:
             -   title:  Standard DTW
                 value:  normal
