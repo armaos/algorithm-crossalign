@@ -16,8 +16,8 @@
 	</head>
 	<body>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
-    	<!-- security start -->      
-    	<script language="javascript" type="text/javascript" src="http://service.tartaglialab.com/static_files/js/md5-min.js"></script>        
+    	<!-- security start -->
+    	<script language="javascript" type="text/javascript" src="http://service.tartaglialab.com/static_files/js/md5-min.js"></script>
     	<script language="javascript" type="text/javascript" src="http://service.tartaglialab.com/static_files/js/parseuri.js"></script>
     	<script type="text/javascript" src="http://service.tartaglialab.com/static_files/js/jquery-1.11.0.js"></script>
     	<script language="javascript" type="text/javascript" src="http://service.tartaglialab.com/static_files/js/jRating.jquery.js"></script>
@@ -28,9 +28,9 @@
     	<style type="text/css">
     		body {
         		/*hide main content */
-        		display:none;        
+        		display:none;
     		}
-    	</style>        
+    	</style>
     	<script type="text/javascript" charset="utf-8">
         	// get pathname
         	var pathname = String(window.location.pathname.split("/").slice(0, -1).join("/"))
@@ -41,20 +41,20 @@
                 	$().ready(function() {
                     	$("body").show()
                     	$("body").css("display", "block");
-                	})            
+                	})
             	} else {
                 	$().ready(function() {
                     	$("body").empty()
                     	$("body").show()
                     	$("body").html("Unauthorised access - please contact administrator with current URL to restore access to the submission")
-                	})  
+                	})
             	}
         	} catch (err) {
             	$().ready(function() {
                 	$("body").empty()
                 	$("body").show()
                 	$("body").html("Unauthorised access - please contact administrator with current URL to restore access to the submission")
-            	})   
+            	})
         	}
     	</script>
    		<!-- security end -->
@@ -66,7 +66,7 @@
 				});
 			});
 		</script>
-    
+
 		<div id="topbar">
 			<div id="home_panel">
 				<p><a href="http://service.tartaglialab.com/">Portal Home</a></p>
@@ -75,16 +75,16 @@
 				<h1>CROSSalign</h1>
 			</div>
 			<div id="navbar_server">
-				<h3>[ 
+				<h3>[
 					<a target="" href="http://service.tartaglialab.com/new_submission/crossalign">CROSSalign Home</a>
-					 - 
+					 -
 					<a target="" href="http://service.tartaglialab.com/static_files/algorithms/crossalign/tutorial.html">Tutorial</a>
-					 - 
+					 -
 					<a target="" href="http://pasteur.crg.es/portal/page/portal/827A462EAB6802B3E04012AC0E01291B">Group page @ CRG</a>
 			 	]</h3>
 			</div>
 		</div>
-		<div id="welcome_server">        
+		<div id="welcome_server">
     		<div>
     			<h2>Your submission results</h2><br />
         		<span id="submission_info">
@@ -92,21 +92,21 @@
         			<p>
         				ID: {{randoms}}<br />
         				User label: {{title}}<br />
-        				Input RNA: <a href="rna.fasta">FASTA file</a><br />
+        				Input RNA: <a href="rna.fasta">FASTA file</a>, <a href="table1.txt">CROSS profile </a><br />
                         Feature: {{feature}}<br />
         				Generated: {{generated}}<br /><br />
         			</p>
        			</span>
         		<br />
-<!-- 
-                <br> 
+<!--
+                <br>
        	 		<div align="left">
         			<a href="profile.txt"><img height=30 width=30 src="pi.gif"> Download the profile(s) </a>
 				</div>
  -->
 
 
-        		<!-- 
+        		<!--
 <br>
                 <div align="center">
                     <a href="profile.png"><img src="profile.png"></a>
@@ -116,13 +116,13 @@
  -->
 		{{summary|safe}}
                     <a href="Submission.zip"><img height=30 width=30 src="tab.gif"> Download all the multiple-output in a .zip table (input, target, structural score, starting match, p-value) </a>
-                <br> 
-                <br /> 
+                <br>
+                <br />
 
-        		<!-- <div>   -->          
-            		<!--<div style="float:left;width:940px;">-->           
- 						<!-- 
-<table cellpadding="0" cellspacing="0" border="0" id="table" class="tablesorter"> 
+        		<!-- <div>   -->
+            		<!--<div style="float:left;width:940px;">-->
+ 						<!--
+<table cellpadding="0" cellspacing="0" border="0" id="table" class="tablesorter">
  							<thead>
  								<tr>
 									<th class="nosort"><p align="center" color="firebrick">Position</p></th>
@@ -138,18 +138,18 @@
 							</script>
 						</table>
  -->
-						
+
 						<!-- table sorter -->
-				<!-- 
-		<script type="text/javascript" src="http://service.tartaglialab.com/static_files/js/jquery.tablesorter.js"></script> 
+				<!--
+		<script type="text/javascript" src="http://service.tartaglialab.com/static_files/js/jquery.tablesorter.js"></script>
 						<script>
-							$(document).ready(function() 
-    							{ 
-        						$("#myTable").tablesorter(); 
-    							} 
-							); 
-						</script> 
-            		<!~~</div>~~>        
+							$(document).ready(function()
+    							{
+        						$("#myTable").tablesorter();
+    							}
+							);
+						</script>
+            		<!~~</div>~~>
 	            	<div style="clear:both;">
  -->
             			<br>

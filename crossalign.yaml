@@ -110,14 +110,14 @@ form_fields:
 
 examples:
     -   reference_id:   117190
-        title:          Standard DTW of Xist Rep-A
+        title:          Xist Rep-A (Standard DTW)
         description:    The Rep-A of Orangutan against the Rep-A of Human
     -   reference_id:   117188
-        title:          DTW-OBE of HOTAIR D2
+        title:          HOTAIR D2  (DTW-OBE)
         description:    D2 of Human against the entire HOTAIR of mouse
     -   reference_id:   117192
-        title:          A Fragmented OBE-DTW of an entire HIV genome
-        description:    A fragmented HIV (genotype AE, 2001) against an entire HIV genome (genotype B, 1993)
+        title:          HIV RNA (fragmented OBE-DTW)
+        description:    HIV genotype AE (2001) vs HIV genotype B (1993)
 #
 #
 algorithm:

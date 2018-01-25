@@ -175,7 +175,7 @@ if mode=="dataset":
 	leng=open("leng.txt","w")
 
 	for filey in files:
-	
+
 		if filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
 			mou1=[]
 			file2=open("../../organisms/"+org+"/"+filey,"r").readlines()
