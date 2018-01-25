@@ -173,8 +173,10 @@ if mode=="dataset":
 	files=os.listdir("../../organisms/"+org+"/")
 	#print os.listdir("organisms/try/")
 	leng=open("leng.txt","w")
+
 	for filey in files:
-		if "txt" in filey and filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
+	
+		if filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
 			mou1=[]
 			file2=open("../../organisms/"+org+"/"+filey,"r").readlines()
 			for line2 in file2:
@@ -196,6 +198,7 @@ if mode=="dataset":
 			tmp1.close()
 			tmp2.close()
 			#print filez,filey
+
 			if len(hum1)<len(mou1):
 				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name1+" "+name2+" "+input1+" "+filey,shell=True)
 				leng.write(input1+" "+filey+" "+str(len(hum1))+" "+str(len(mou1))+"\n")
