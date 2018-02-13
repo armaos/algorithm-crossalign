@@ -11,7 +11,6 @@ from shutil import copyfile
 
 
 os.system("python crosspipeline.py global")
-
 #input1=os.listdir("./Submission/Profiles/")[0]
 input1=((open("input.fasta","r").readline()).split("\t"))[0][1:]
 copyfile("./outputs/table.txt", "./outputs/table1.txt")
@@ -160,11 +159,13 @@ if mode=="fragment":
 		os.system("awk '{print NR,$1}' tmp1.txt > shorter.txt")
 		os.system("awk '{print NR,$1}' tmp2.txt > longer.txt")
 		i=i+1
-if mode=="custom_dataset":
-	os.system("python crosspipeline.py $global")
 
-if mode=="dataset":
-	org=str(sys.argv[2])
+if "dataset" in mode:
+	if "custom" in mode:
+		files=os.listdir("custom_dataset/")
+	else:
+		org=str(sys.argv[2])
+		files=os.listdir("../../organisms/"+org+"/")
 	hum1=[]
 	for line in file1:
 		camp=line.split("\t")
@@ -173,7 +174,7 @@ if mode=="dataset":
 				hum1.append(float(camp[2]))
 			else:
 				hum1.append(0)
-	files=os.listdir("../../organisms/"+org+"/")
+
 	#print os.listdir("organisms/try/")
 	leng=open("leng.txt","w")
 

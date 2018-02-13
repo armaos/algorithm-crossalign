@@ -1,3 +1,4 @@
+#!/bin/sh
 file=$1
 file2=$2
 network=$3
@@ -9,7 +10,7 @@ random=$4
 cd tmp/$random
 
 awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file | awk '(NF>1)' > input.fasta
-cat input.fasta
+#cat input.fasta
 
 if [ $network == "normal" ]
 then
@@ -62,10 +63,19 @@ then
 	awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
 fi
 
-if [ $network == "dataset" ]
+if [[ $network = *"dataset"* ]]
 then
-	echo "dataset"; echo $file2
-	python crossalignpipe.py $network $file2 > dtw_output.tmp
+	if [[ $network = *"custom"* ]]
+	then
+		echo "custom_dataset"; echo $file2
+		mkdir custom_dataset
+		awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > multi.input.fasta
+		python multicrosspipeline.py global
+		python crossalignpipe.py $network > dtw_output.tmp
+	else
+		echo "dataset"; echo $file2
+		python crossalignpipe.py $network $file2 > dtw_output.tmp
+	fi
 	awk '(NF==2 && $1=="[1]"){printf "%s\t",$2} (NF>2 && $1=="[1]"){printf "%s\t%s\n",$2,$2+200}' dtw_output.tmp | sed 's/"//g' > outputs/table_final.txt
 	paste ./outputs/table_final.txt leng.txt > table_big.txt
 	python multipval_dat.py

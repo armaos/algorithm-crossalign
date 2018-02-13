@@ -125,7 +125,9 @@ if input_mode == "text":
         SeqIO.write(rnaSeq, output_handle1, "fasta")
         output_handle1.close()
         if args.FORMfeature[0]=="custom_dataset":
-            customrnaSeq = args.fileA[0]
+            customrnaSeq = os.path.abspath(args.fileA[0])
+            os.rename(customrnaSeq, os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" ))
+            customrnaSeq = os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" )
 else:
     rnaSeq = []
 
@@ -174,10 +176,12 @@ else:
         SeqIO.write(rnaSeq, output_handle1, "fasta")
         output_handle1.close()
         if args.FORMfeature[0]=="custom_dataset":
-            customrnaSeq = args.fileC[0]
+            customrnaSeq = os.path.abspath(args.fileC[0])
+            os.rename(customrnaSeq, os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" ))
+            customrnaSeq = os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" )
 
 
-#IPython.embed()
+
 os.chdir(SCRIPT_PATH)
 
 args.FORMtitle = "".join([t.replace(' ', '_') for t in args.FORMtitle])
@@ -185,11 +189,10 @@ if args.FORMfeature[0]!="dataset" and args.FORMfeature[0]!="custom_dataset":
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,rnaFile2,args.FORMfeature[0],random_number,args.FORMemail[0])
 
 elif args.FORMfeature[0]=="custom_dataset":
-    command = "python crosspipeline.py global".format()
-    p = subprocess.Popen(command, cwd=SCRIPT_PATH, shell=True)
-    p.communicate()
+	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,customrnaSeq,args.FORMfeature[0],random_number,args.FORMemail[0])
 
-if args.FORMfeature[0]=="dataset":
+
+elif args.FORMfeature[0]=="dataset":
 	print args.FORMorganism[0:],args.FORMfeature[0]
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,args.FORMorganism[0:],args.FORMfeature[0],random_number,args.FORMemail[0])
 

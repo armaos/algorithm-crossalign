@@ -15,16 +15,17 @@ import IPython
 
 print "Fragmenting the input RNA ..."
 
-file=open("input.fasta","r").readlines()
+file=open("multi.input.fasta","r").readlines()
 #seq="ACGTGACCTGTGCGAAAACCCGTGTTTTAACCACTTTATGAACTGGGGAC"
 #seq=str(sys.argv[1])
+IPython.embed()
 for line in file:
-	fragments=open("fragments.txt","w")	
+	fragments=open("fragments.txt","w")
 	namerna2=line.split("\t")[0][1:]
 	namerna=namerna2.split("|")[0]
 	seq=line.split("\t")[1][:-1]
 	rnastruct_fasta=open("rnastr.fasta","w")
-	#circularization of the sequence 
+	#circularization of the sequence
 	seqa=seq[-6:]
 	seqb=seq[0:6]
 	seq2=seqa+seq+seqb
@@ -50,7 +51,7 @@ for line in file:
 # BINARY CONVERSION: converts each standard nucleotide inside the fragments and save all inside NNinput.txt
 
 	print "Binary converting fragments ..."
-	fragments=open("fragments.txt","r").readlines()		
+	fragments=open("fragments.txt","r").readlines()
 	#print line.split("\t")[0],scores[wind],window
 	#ann=open("./input/NNinput.txt","w")
 	ann=open("./input/train.0.dat","w")
@@ -105,10 +106,10 @@ for line in file:
 		os.system("./test ./input/train.0.dat ./Networks/icall | awk '(NF==3){print $3}' | awk '{print NR,$1}' > profile2.txt")
 		os.system("./test ./input/train.0.dat ./Networks/yeast | awk '(NF==3){print $3}' | awk '{print NR,$1}' > profile5.txt")
 		os.system("paste profile1.txt profile2.txt profile3.txt profile4.txt profile5.txt | awk '{print $1,$2,$4,$6,$8,$10}' > svm_input.txt")
-	
-	###LOADING AND TESTING OF THE SVM 	
+
+	###LOADING AND TESTING OF THE SVM
 		testname=open("svm_input.txt","r").readlines()
-		clf = joblib.load('svm_proba.pkl') 
+		clf = joblib.load('svm_proba.pkl')
 		result=open("profile_tmp.txt","w")
 		data_test=[[]]
 		datay_test=[]
@@ -123,43 +124,18 @@ for line in file:
 		result.close()
 		#$3 prob to be negative, $4 prob to be positive
 		os.system("awk '{print $0}' profile_tmp.txt | sed 's/]//g' | awk '{print $1,((2*$4)-1)}' > profile.txt")
-		
+
 		#RNAstructure
 		tablepath=os.path.dirname(os.path.realpath(__file__))
-		print ("Launching RNAstructure")
-		os.system("awk '{print $0}' profile_tmp.txt | sed 's/]//g' | awk '{print $1,$3}' > profile.shape")
-		#os.system("awk '{print $0}' profile_tmp.txt | sed 's/]//g' | awk '($4>=0.65){print $1,1} ($4<=0.35){print $1,0} ($4>0.35 && $4<0.65){print $1,($4-0.35)/(0.65-0.35)} > profile.shape") #best normalization
-		if len(seq2)<=500:
-			os.system("export DATAPATH="+str(tablepath)+"/data_tables/; ./Fold rnastr.fasta structure.ct --maximum 1 --SHAPE profile.shape")
-			os.system("./ct2dot structure.ct 1 structure.dot")
-			os.system("awk '(NR==3)' structure.dot > summary.txt")
-			os.system("cp structure.ct ./Submission/Structures/"+namerna+".ct")
 
-################################
-# GRAPHICAL creates the profile.png using R
-
-	
-#	graph="profile.txt"
-	# for line in predo:
-# 		camp=line.split(" ")
-# 		real=camp[0]
-# 		pred=camp[1]
-# 		if float(pred)>0:
-# 			p.append("|")
-# 		if float(pred)<0:
-# 			p.append(".")
-# 
-# 	for elem1 in p:
-# 		sys.stdout.write(elem1)
-# 	sys.stdout.write("------\n")
 	smooth=int(float(float(len(seq))/90)+7-0.22)
-	subprocess.call("cat multiautoplot.r | R --slave --vanilla --args "+namerna+" "+str(smooth),shell=True) #call autoplot.r to build the smoothing profile
-	
+	#subprocess.call("cat multiautoplot.r | R --slave --vanilla --args "+namerna+" "+str(smooth),shell=True) #call autoplot.r to build the smoothing profile
+
 ##############
 # TABLE creates the table in output in the webserver
 	os.system("paste profile.txt smooth.txt | sed 's/NA/-/g' > profile_try.txt")
 	predo=open("profile_try.txt","r").readlines()
-	table=open("./Submission/Profiles/"+namerna+".txt","w")
+	table=open("./custom_dataset/"+namerna,"w")
 	#table.write("Position\tNucleotide\tPropensity\n")
 	for line in predo:
 		camp=line.split()
@@ -173,7 +149,3 @@ for line in file:
 
 #####################
 # VIENNA
-
-
-
-
