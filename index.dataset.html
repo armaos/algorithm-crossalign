@@ -98,68 +98,51 @@
         			</p>
        			</span>
         		<br />
-<!--
-                <br>
-       	 		<div align="left">
-        			<a href="profile.txt"><img height=30 width=30 src="pi.gif"> Download the profile(s) </a>
-				</div>
- -->
-
-
-        		<!--
-<br>
-                <div align="center">
-                    <a href="profile.png"><img src="profile.png"></a>
-                </div>
-                <br>
-                <div align="left">
- -->
 		{{summary|safe}}
-                    <a href="Submission.zip"><img height=30 width=30 src="tab.gif"> Download all the multiple-output in a .zip table (input, target, structural score, starting match, p-value) </a>
-                <br>
-                <br />
+              <a href="Submission.zip"><img height=30 width=30 src="tab.gif"> Download the complete table as .zip file(input, target, structural score, starting match, p-value) </a>
+              <br /><br />
+							<h2 align="center"> Sample of the best 20 results:</br></h2>
+              <br />
+							<div style="height:500px; overflow:auto;">
+										<!--<div style="float:left;width:940px;">-->
+								<table cellpadding="0" cellspacing="0" border="0" id="table" class="tablesorter">
+									<thead>
+										<tr>
+											<th class="nosort"><p align="center" color="firebrick">Short_RNA</p></th>
+											<th class="nosort"><p align="center" color="firebrick">Large_RNA</p></th>
+											<th class="nosort"><p align="center" color="firebrick">Structural_Score</p></th>
+											<th class="nosort"><p align="center" color="firebrick">Starting_match</p></th>
+											<th class="nosort"><p align="center" color="firebrick">p-value</p></th>
+										</tr>
+									</thead>
+									<script type="text/javascript">
+										var ajaxRq = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Msxml2.XMLHTTP");
+										ajaxRq.open("GET", "table.html", false);
+										ajaxRq.send(null);
+										document.write(ajaxRq.responseText);
+									</script>
+								</table>
 
-        		<!-- <div>   -->
-            		<!--<div style="float:left;width:940px;">-->
- 						<!--
-<table cellpadding="0" cellspacing="0" border="0" id="table" class="tablesorter">
- 							<thead>
- 								<tr>
-									<th class="nosort"><p align="center" color="firebrick">Position</p></th>
-									<th class="nosort"><p align="center" color="firebrick">Nucleotide</p></th>
-                                    <th class="nosort"><p align="center" color="firebrick">Propensity Score</p></th>
-								</tr>
-							</thead>
-							<script type="text/javascript">
-								var ajaxRq = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Msxml2.XMLHTTP");
-								ajaxRq.open("GET", "table.html", false);
-								ajaxRq.send(null);
-								document.write(ajaxRq.responseText);
-							</script>
-						</table>
- -->
-
-						<!-- table sorter -->
-				<!--
-		<script type="text/javascript" src="http://service.tartaglialab.com/static_files/js/jquery.tablesorter.js"></script>
-						<script>
-							$(document).ready(function()
-    							{
-        						$("#myTable").tablesorter();
-    							}
-							);
-						</script>
-            		<!~~</div>~~>
-	            	<div style="clear:both;">
- -->
-            			<br>
-        			</div>
-    			</div>
-    			<div id="footer_main">
-    				<hr>
-					<p>&copy; 2015 - <a href="http://big.crg.cat/gene_function_and_evolution" target="_blank">Gene Function and Evolution</a> - <a href="http://www.crg.eu" target="_blank">Center for Genomic Regulation (CRG)</a></p>
-    			</div>
+								<!-- table sorter -->
+								<script type="text/javascript" src="http://service.tartaglialab.com/static_files/js/jquery.tablesorter.js"></script>
+								<script>
+									$(document).ready(function()
+											{
+												$("#myTable").tablesorter();
+											}
+									);
+								</script>
+										<!--</div>-->
+										<div style="clear:both;">
+											<br>
+									</div>
+							</div>
+          		<br>
+        </div>
+    	</div>
+			<div id="footer_main">
+						<hr>
+						<p>&copy; 2015 - <a href="http://big.crg.cat/gene_function_and_evolution" target="_blank">Gene Function and Evolution</a> - <a href="http://www.crg.eu" target="_blank">Center for Genomic Regulation (CRG)</a></p>
 			</div>
-		</div>
 	</body>
 </html>

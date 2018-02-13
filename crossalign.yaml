@@ -80,6 +80,14 @@ form_fields:
                   - sequence_two
                 shows:
                   - organism
+            -   title:  Custom Dataset (Upload your sequences for a custom dataset)
+                value:  custom_dataset
+                hides:
+                  - sequence_two
+                hides:
+                  - organism
+                shows:
+                  - sequences
     -   name: organism
         description: <b>Organism (all lincRNAs from Ensemble)</b>
         type: radio
@@ -118,6 +126,16 @@ examples:
     -   reference_id:   117192
         title:          HIV RNA (fragmented OBE-DTW)
         description:    HIV genotype AE (2001) vs HIV genotype B (1993)
+
+file_uploads:
+    -   name: sequences
+        filename: C.fasta
+        hidden: Yes
+        description: RNA Sequences for custom dataset (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
+        format: fasta
+        required: No
+        min_sequences:  1
+        min_indiv_len:  25
 #
 #
 algorithm:

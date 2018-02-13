@@ -38,9 +38,13 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     '-text', type=str, nargs="?", help='Just to enable text mode')
 
+
 if input_mode == "file":
     parser.add_argument('-fileA', type=str, default=["none"], nargs=1, help='Fasta sequence')
     parser.add_argument('-fileB', type=str, default=["none"], nargs=1, help='Fasta sequence')
+    parser.add_argument('-fileC', type=str, default=["none"], nargs=1, help='Fasta sequence')
+else:
+    parser.add_argument('-fileA', type=str, default=["none"], nargs=1, help='Fasta sequence')
 
 parser.add_argument(
    '-output_dir', type=str, nargs=1,
@@ -86,7 +90,7 @@ if input_mode == "text":
 
 
 
-    if args.FORMfeature[0]!="dataset":
+    if args.FORMfeature[0]!="dataset" and args.FORMfeature[0]!="custom_dataset":
     	Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
     	if Rpat.match(args.FORMsequence_two) == None:
     		#print args.FORM
@@ -120,6 +124,8 @@ if input_mode == "text":
 
         SeqIO.write(rnaSeq, output_handle1, "fasta")
         output_handle1.close()
+        if args.FORMfeature[0]=="custom_dataset":
+            customrnaSeq = args.fileA[0]
 else:
     rnaSeq = []
 
@@ -133,7 +139,7 @@ else:
 
     #import IPython
     #IPython.embed()
-    if args.FORMfeature[0]!="dataset":
+    if args.FORMfeature[0]!="dataset" and args.FORMfeature[0]!="custom_dataset":
 
         rnaSeq2 = []
         rnaFile2 = os.path.join(OUTPUT_PATH.replace("outputs/", ""),"rna2.fasta")
@@ -167,16 +173,27 @@ else:
 
         SeqIO.write(rnaSeq, output_handle1, "fasta")
         output_handle1.close()
+        if args.FORMfeature[0]=="custom_dataset":
+            customrnaSeq = args.fileC[0]
+
 
 #IPython.embed()
 os.chdir(SCRIPT_PATH)
 
 args.FORMtitle = "".join([t.replace(' ', '_') for t in args.FORMtitle])
-if args.FORMfeature[0]!="dataset":
+if args.FORMfeature[0]!="dataset" and args.FORMfeature[0]!="custom_dataset":
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,rnaFile2,args.FORMfeature[0],random_number,args.FORMemail[0])
-else:
+
+elif args.FORMfeature[0]=="custom_dataset":
+    command = "python crosspipeline.py global".format()
+    p = subprocess.Popen(command, cwd=SCRIPT_PATH, shell=True)
+    p.communicate()
+
+if args.FORMfeature[0]=="dataset":
 	print args.FORMorganism[0:],args.FORMfeature[0]
 	command = """ bash crossalign.sh "{}" "{}" "{}" "{}" """.format(rnaFile,args.FORMorganism[0:],args.FORMfeature[0],random_number,args.FORMemail[0])
+
+
 print command
 
 p = subprocess.Popen(command, cwd=SCRIPT_PATH, shell=True)

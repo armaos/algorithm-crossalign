@@ -73,6 +73,6 @@ then
 	awk '{print $1,$2,$3,$4,$6, log($6)}' ./outputs/table_final2.txt | sort -nk6 | awk '{print $1, $2, $3, $4, $5}' >>./outputs/output_table.txt
 	#awk '{print $1,$2,$3,$4,$6}' ./outputs/table_final2.txt > ./outputs/output_table.txt
 	zip -r ./outputs/Submission ./outputs/output_table.txt
-	#awk -F '\t' 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n",$1, $3, $4, $5, $6}END{printf "</tbody>\n"}' ./outputs/table_final2.txt  > outputs/table.html
-fi
+	head -21 ./outputs/output_table.txt | awk  'BEGIN{printf "<tbody>\n"}NR>1{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t</tr>\n",$1, $2, $3, $4, $5}END{printf "</tbody>\n"}'  > outputs/table.html
+	fi
 cd ../..
