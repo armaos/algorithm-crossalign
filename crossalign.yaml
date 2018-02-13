@@ -62,29 +62,32 @@ form_fields:
                   - sequence_two
                 hides:
                   - organism
+                  - sequences
             -   title:  OBE-DTW
                 value:  obe
                 shows:
                   - sequence_two
                 hides:
                   - organism
+                  - sequences
             -   title:  Fragmented OBE-DTW
                 value:  fragment
                 shows:
                   - sequence_two
                 hides:
                   - organism
+                  - sequences
             -   title:  Dataset (lincRNAs of a specific organism)
                 value:  dataset
                 hides:
                   - sequence_two
+                  - sequences
                 shows:
                   - organism
             -   title:  Custom Dataset (Upload your sequences for a custom dataset)
                 value:  custom_dataset
                 hides:
                   - sequence_two
-                hides:
                   - organism
                 shows:
                   - sequences
@@ -139,7 +142,7 @@ file_uploads:
 #
 #
 algorithm:
-    command:              "crossalign.py -text=Yes -output_dir=<output_dir>"
+    command:              "crossalign.py -text=Yes -fileA=<file0> -output_dir=<output_dir>"
     processing_timeout:   86400
 
 # for the processing part
