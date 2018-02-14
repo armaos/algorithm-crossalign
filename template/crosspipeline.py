@@ -70,7 +70,7 @@ for line in fragments:
 		if nt=="G" or nt=="g":
 			ann.write("-1 -1 -1 1 ")
 	##########added if need a random output because the structure is unknown
-	
+
 	if wind%2==0:
 		ann.write("\n1\n")
 	else:

@@ -70,7 +70,9 @@ then
 		echo "custom_dataset"; echo $file2
 		mkdir custom_dataset
 		awk '{if($1~/>/){printf "\n%s\t", $1}else printf $1 }' $file2 | awk '(NF>1)' > multi.input.fasta
+		echo "creating custom dataset"
 		python multicrosspipeline.py global
+		echo "dataset done"
 		python crossalignpipe.py $network > dtw_output.tmp
 	else
 		echo "dataset"; echo $file2

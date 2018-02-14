@@ -42,7 +42,6 @@ parser.add_argument(
 if input_mode == "file":
     parser.add_argument('-fileA', type=str, default=["none"], nargs=1, help='Fasta sequence')
     parser.add_argument('-fileB', type=str, default=["none"], nargs=1, help='Fasta sequence')
-    parser.add_argument('-fileC', type=str, default=["none"], nargs=1, help='Fasta sequence')
 else:
     parser.add_argument('-fileA', type=str, default=["none"], nargs=1, help='Fasta sequence')
 
@@ -126,7 +125,9 @@ if input_mode == "text":
         output_handle1.close()
         if args.FORMfeature[0]=="custom_dataset":
             customrnaSeq = os.path.abspath(args.fileA[0])
-            os.rename(customrnaSeq, os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" ))
+            print "custom dataset, fileA: ",args.fileA[0]
+            shutil.copyfile(customrnaSeq, os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" ))
+            #os.rename(customrnaSeq, os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" ))
             customrnaSeq = os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" )
 else:
     rnaSeq = []
@@ -176,8 +177,9 @@ else:
         SeqIO.write(rnaSeq, output_handle1, "fasta")
         output_handle1.close()
         if args.FORMfeature[0]=="custom_dataset":
-            customrnaSeq = os.path.abspath(args.fileC[0])
-            os.rename(customrnaSeq, os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" ))
+            customrnaSeq = os.path.abspath(args.fileB[0])
+            shutil.copyfile(customrnaSeq, os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" ))
+            #os.rename(customrnaSeq, os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" ))
             customrnaSeq = os.path.join(os.path.dirname(customrnaSeq),"multi.rna.fasta" )
 
 
@@ -216,24 +218,19 @@ if p.returncode == 0:
 	settings.configure(TEMPLATE_DIRS=(os.path.join(SCRIPT_PATH,'./')), DEBUG=True, TEMPLATE_DEBUG=True)
 
 	# read the template file into a variable
-	if args.FORMfeature[0]!="dataset":
+	if args.FORMfeature[0]!="dataset" and args.FORMfeature[0]!="custom_dataset":
 		i=0
 		myfile=open(TMP_PATH+"score.txt","r").readlines()
 		for line in myfile:
 			distance=line[:-1]
 
 	#P-VALUE
-	if args.FORMfeature[0]!="fragment" and args.FORMfeature[0]!="dataset":
+	if args.FORMfeature[0]!="fragment" and args.FORMfeature[0]!="dataset" and args.FORMfeature[0]!="custom_dataset":
 		myfile2=open(TMP_PATH+"pval.txt","r").readlines()
 		for line in myfile2:
 			pval=line[:-1]
 
 	summary_line=''
-
-
-
-
-
 
 	#HTML INDEX DECISION
 	if args.FORMfeature[0]=="normal":
@@ -254,7 +251,7 @@ if p.returncode == 0:
 	if args.FORMfeature[0]=="fragment":
 		with open(os.path.join(SCRIPT_PATH, "index.crossalign_fragments.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
-	if args.FORMfeature[0]=="dataset":
+	if args.FORMfeature[0]=="dataset" or args.FORMfeature[0]=="custom_dataset":
 		with open(os.path.join(SCRIPT_PATH, "index.dataset.html"), "r") as template_file:
 			   template_string = "".join(template_file.readlines())
 	import datetime
@@ -306,7 +303,7 @@ if p.returncode == 0:
 			   "summary" : summary_line
 		   }
 		)
-	if args.FORMfeature[0]=="dataset":
+	if args.FORMfeature[0]=="dataset" or args.FORMfeature[0]=="custom_dataset":
 
 		c = Context(
 			{
@@ -321,10 +318,9 @@ if p.returncode == 0:
 
 	# and this bit outputs it all into index.html
 	#print "crosspy OUTPUT_path", OUTPUT_PATH
+
 	with open(os.path.join(OUTPUT_PATH, "index.html"), "w") as output:
 	   output.write(t.render(c))
-
+	print "done"
 else:
 	sys.exit("The execution of the C code  failed.")
-
-print "done"

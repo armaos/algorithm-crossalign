@@ -5,12 +5,12 @@ import time
 import numpy
 import subprocess
 from shutil import copyfile
-
+import IPython
 
 #LAUNCHING CROSS
 
-
 os.system("python crosspipeline.py global")
+
 #input1=os.listdir("./Submission/Profiles/")[0]
 input1=((open("input.fasta","r").readline()).split("\t"))[0][1:]
 copyfile("./outputs/table.txt", "./outputs/table1.txt")
@@ -34,7 +34,7 @@ mode=str(sys.argv[1])
 
 #print filez
 
-if mode!="fragment" and mode!="dataset":
+if mode!="fragment" and mode!="dataset" and mode!="custom_dataset":
 
 	os.system("cp input2.fasta input.fasta")
 	os.system("python crosspipeline.py global")
@@ -162,11 +162,14 @@ if mode=="fragment":
 
 if "dataset" in mode:
 	if "custom" in mode:
-		files=os.listdir("custom_dataset/")
+		dataset_dir="./custom_dataset/"
+
 	else:
 		org=str(sys.argv[2])
-		files=os.listdir("../../organisms/"+org+"/")
+		dataset_dir=os.path.join("../../organisms/",org)
+
 	hum1=[]
+	files=os.listdir(dataset_dir)
 	for line in file1:
 		camp=line.split("\t")
 		if len(camp)==4:
@@ -178,11 +181,13 @@ if "dataset" in mode:
 	#print os.listdir("organisms/try/")
 	leng=open("leng.txt","w")
 
+
 	for filey in files:
 
-		if filey!=".txt" and filey!=".DS_Store" and filey[:3]=="ENS":
+		if filey!=".DS_Store":
 			mou1=[]
-			file2=open("../../organisms/"+org+"/"+filey,"r").readlines()
+
+			file2=open(os.path.join(dataset_dir,filey),"r").readlines()
 			for line2 in file2:
 				camp2=line2.split("\t")
 				if len(camp2)==4:
@@ -209,4 +214,5 @@ if "dataset" in mode:
 			else:
 				subprocess.call("cat dtw_obe.r | R --slave --vanilla --args "+name2+" "+name1+" "+filey+" "+input1,shell=True)
 				leng.write(filey+" "+input1+" "+str(len(mou1))+" "+str(len(hum1))+"\n")
+			
 	leng.close()

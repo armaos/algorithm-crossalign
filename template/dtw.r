@@ -5,8 +5,8 @@ name1<-as.character(args[7])
 name2<-as.character(args[8])
 
 
-library(dtw)
-library(proxy)
+suppressMessages(library(dtw))
+suppressMessages(library(proxy))
 png("outputs/plot.png")
 one<-read.table(vect1)
 two<-read.table(vect2)

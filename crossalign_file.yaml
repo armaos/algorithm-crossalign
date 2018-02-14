@@ -49,35 +49,30 @@ form_fields:
                   - sequence_two
                 hides:
                   - organism
-                  - sequences
             -   title:  OBE-DTW
                 value:  obe
                 shows:
                   - sequence_two
                 hides:
                   - organism
-                  - sequences
             -   title:  Fragmented OBE-DTW
                 value:  fragment
                 shows:
                   - sequence_two
                 hides:
                   - organism
-                  - sequences
             -   title:  Dataset (lincRNAs of a specific organism)
                 value:  dataset
                 hides:
                   - sequence_two
-                  - sequences
                 shows:
                   - organism
             -   title:  Custom Dataset (Upload your sequences for a custom dataset)
                 value:  custom_dataset
                 hides:
-                  - sequence_two
                   - organism
                 shows:
-                  - sequences
+                  - sequence_two
     -   name: organism
         description: <b>Organism (all lincRNAs from Ensemble)</b>
         type: radio
@@ -101,36 +96,28 @@ form_fields:
         required: No
 
 file_uploads:
-    -   name: sequence_one
-        filename: A.fasta
-        description: RNA Sequences 1 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
-        format: fasta
-        required: Yes
-        min_sequences:  1
-        min_indiv_len:  25
+  -   name: sequence_one
+      filename: A.fasta
+      description: RNA Sequences 1 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
+      format: fasta
+      required: Yes
+      min_sequences:  1
+      min_indiv_len:  25
+  -   name: sequence_two
+      filename: C.fasta
+      hidden: Yes
+      description: RNA Sequences 2 or for custom dataset (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
+      format: fasta
+      required: No
+      min_sequences:  1
+      min_indiv_len:  25
 
-    -   name: sequence_two
-        filename: B.fasta
-        description: RNA Sequences 2 (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
-        format: fasta
-        required: No
-        hidden: No
-        min_sequences:  1
-        min_indiv_len:  25
 
-    -   name: sequences
-        filename: C.fasta
-        hidden: Yes
-        description: RNA Sequences for custom dataset (FASTA format, please ensure that your sequences only contain A, C, G, T, and U. Do not use !@#$% etc.; the minimum required sequence length is 25 nucleotides.)
-        format: fasta
-        required: No
-        min_sequences:  1
-        min_indiv_len:  25
 
 
 
 algorithm:
-    command:              "crossalign.py -text=No -fileA=<file0> -fileB=<file1> -fileC=<file2> -output_dir=<output_dir>"
+    command:              "crossalign.py -text=No -fileA=<file0> -fileB=<file1>  -output_dir=<output_dir>"
     processing_timeout:   86400
 
 # for the processing part

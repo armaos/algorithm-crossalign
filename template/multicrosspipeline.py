@@ -15,11 +15,10 @@ import IPython
 
 print "Fragmenting the input RNA ..."
 
-file=open("multi.input.fasta","r").readlines()
+my_file=open("multi.input.fasta","r").readlines()
 #seq="ACGTGACCTGTGCGAAAACCCGTGTTTTAACCACTTTATGAACTGGGGAC"
 #seq=str(sys.argv[1])
-IPython.embed()
-for line in file:
+for line in my_file:
 	fragments=open("fragments.txt","w")
 	namerna2=line.split("\t")[0][1:]
 	namerna=namerna2.split("|")[0]
@@ -50,7 +49,7 @@ for line in file:
 ###############################
 # BINARY CONVERSION: converts each standard nucleotide inside the fragments and save all inside NNinput.txt
 
-	print "Binary converting fragments ..."
+	#print "Binary converting fragments ..."
 	fragments=open("fragments.txt","r").readlines()
 	#print line.split("\t")[0],scores[wind],window
 	#ann=open("./input/NNinput.txt","w")
@@ -85,7 +84,7 @@ for line in file:
 # NEURAL NETWORK: launch first the normalise.sh Gian's script to normalize the input, then launch the selected ANN and saves the profile in a 1 column file
 
 	net=str(sys.argv[1])
-	print  "Creating the predictions ..."
+	#print  "Creating the predictions ..."
 	#os.system("sh normalise.sh NNinput.txt 0 0")
 	os.system("gcc -o test simple_test.c -lfann -lm") #compile the simple_test.c script to run fann
 	if net=="human":
@@ -127,9 +126,35 @@ for line in file:
 
 		#RNAstructure
 		tablepath=os.path.dirname(os.path.realpath(__file__))
+		print ("Launching RNAstructure")
+		os.system("awk '{print $0}' profile_tmp.txt | sed 's/]//g' | awk '{print $1,$3}' > profile.shape")
+		#os.system("awk '{print $0}' profile_tmp.txt | sed 's/]//g' | awk '($4>=0.65){print $1,1} ($4<=0.35){print $1,0} ($4>0.35 && $4<0.65){print $1,($4-0.35)/(0.65-0.35)} > profile.shape") #best normalization
+		"""
+		if len(seq2)<=500:
+			os.system("export DATAPATH="+str(tablepath)+"/data_tables/; ./Fold rnastr.fasta structure.ct --maximum 1 --SHAPE profile.shape")
+			os.system("./ct2dot structure.ct 1 structure.dot")
+			os.system("awk '(NR==3)' structure.dot > summary.txt")
+			#os.system("cp structure.ct ./Submission/Structures/"+namerna+".ct")
+		"""
+################################
+# GRAPHICAL creates the profile.png using R
 
+
+#	graph="profile.txt"
+	# for line in predo:
+# 		camp=line.split(" ")
+# 		real=camp[0]
+# 		pred=camp[1]
+# 		if float(pred)>0:
+# 			p.append("|")
+# 		if float(pred)<0:
+# 			p.append(".")
+#
+# 	for elem1 in p:
+# 		sys.stdout.write(elem1)
+# 	sys.stdout.write("------\n")
 	smooth=int(float(float(len(seq))/90)+7-0.22)
-	#subprocess.call("cat multiautoplot.r | R --slave --vanilla --args "+namerna+" "+str(smooth),shell=True) #call autoplot.r to build the smoothing profile
+	subprocess.call("cat multiautoplot.r | R --slave --vanilla --args "+namerna+" "+str(smooth),shell=True) #call autoplot.r to build the smoothing profile
 
 ##############
 # TABLE creates the table in output in the webserver
